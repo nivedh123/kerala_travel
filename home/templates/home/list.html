@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>list</h1>
+{%for spot in notes %}
+<div>
+    <a href="{%url 'detail' pk=spot.id %}">
+    <img src="{{ spot.image.url }}" width="150" height="100"/>
+<p>{{spot.name}}</p>
+<p2>{{spot.discription}}</p2>
+<p>{{spot.user}}</p>
+</a>
+</div>
+{%endfor%}
+<a href="{% url 'home'%}">HOME</a>
+{%endblock%}
