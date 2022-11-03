@@ -5,7 +5,7 @@ from .models import spot
 from django.views.generic import ListView,DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.views import LoginView,LogoutView
-from .forms import spotform,CustomUserCreationForm
+from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict
 from django.shortcuts import redirect, render  
 #-------------------------------------------------------
 @login_required(login_url='/spots/')
@@ -72,10 +72,29 @@ class ListofSpotuser(LoginRequiredMixin,ListView):
     def get_queryset(self):
         return self.request.user.spot.all()
 #-------------------------------------------------------
-class ListofSpot(ListView):
-    model=spot
-    context_object_name='notes'
-    template_name='home/list.html'
+
+
+
+
+
+
+def ListofSpot(request):
+    serchdistrict=searchFormbyDistrict
+    if request.method == 'POST':
+        filled_form=searchFormbyDistrict(request.POST)
+        print('stage1')
+        if filled_form.is_valid():
+            print('stage2')
+            result=filled_form.cleaned_data['distri']
+            note=spot.objects.filter(district=result)
+            return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
+    notes=spot.objects.all()
+    return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
+
+
+
+
+
 #-------------------------------------------------------
 class DetailofSpot(DetailView):
     model=spot

@@ -37,7 +37,7 @@ class spot(models.Model):
     district=models.ForeignKey(districts,on_delete=models.CASCADE)
     danger=models.ForeignKey(remark,on_delete=models.CASCADE)
     address=models.TextField()
-    rating=models.FloatField(default=5)
+    #rating=models.FloatField(default=5)
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
         self.image = new_image
@@ -45,4 +45,4 @@ class spot(models.Model):
        
 
     def __str__(self):
-        return self.name
+        return self.name,self.district
