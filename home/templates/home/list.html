@@ -1,10 +1,10 @@
 {%extends 'base.html'%}
 {%block content%}
 <h1>search area</h1>
-<forms href="{%url 'list' %}" method='post'>{%csrf_token%}
+<form href="{%url 'list' %}" method='post'>{%csrf_token%}
     {{searchdis}}
     <input type="submit" value="SUBMIT">
-</forms>
+</form>
 <br>
 
 <h1>list</h1>

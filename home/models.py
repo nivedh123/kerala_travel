@@ -27,16 +27,17 @@ class remark(models.Model):
     def __str__(self):
         return self.alert
 
+
 class spot(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='spot')
-    image=models.ImageField(upload_to='image/')
+    image=models.ImageField()
     name=models.CharField(max_length=20)
     discription=models.TextField()
-    latitude=models.FloatField()
-    longitude=models.FloatField()
+    link=models.EmailField()
     district=models.ForeignKey(districts,on_delete=models.CASCADE)
-    danger=models.ForeignKey(remark,on_delete=models.CASCADE)
-    address=models.TextField()
+    type=models.ForeignKey(remark,on_delete=models.CASCADE)
+    warning=models.TextField()
+    verify=models.BooleanField(default=False)
     #rating=models.FloatField(default=5)
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
@@ -45,4 +46,9 @@ class spot(models.Model):
        
 
     def __str__(self):
-        return self.name,self.district
+        return self.name
+class reviewmodel(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
+    content=models.TextField()
+    date=models.DateTimeField(auto_now_add=True)
+    spot=models.ForeignKey(spot,on_delete=models.CASCADE,related_name='reviewmodel')

@@ -85,7 +85,7 @@ def ListofSpot(request):
         print('stage1')
         if filled_form.is_valid():
             print('stage2')
-            result=filled_form.cleaned_data['distri']
+            result=filled_form.cleaned_data['district']
             note=spot.objects.filter(district=result)
             return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
     notes=spot.objects.all()

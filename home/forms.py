@@ -15,7 +15,7 @@ class searchFormbyDistrict(forms.Form):
 class spotform(forms.ModelForm):
     class Meta:
         model=spot
-        fields=['image','name','discription','latitude','longitude','district','danger','address']
+        fields=['image','name','discription','link','district','type','warning']
    
 
 class CustomUserCreationForm(UserCreationForm):  
