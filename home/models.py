@@ -33,7 +33,7 @@ class spot(models.Model):
     image=models.ImageField()
     name=models.CharField(max_length=20)
     discription=models.TextField()
-    link=models.EmailField()
+    link=models.URLField()
     district=models.ForeignKey(districts,on_delete=models.CASCADE)
     type=models.ForeignKey(remark,on_delete=models.CASCADE)
     warning=models.TextField()

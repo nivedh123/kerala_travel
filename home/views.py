@@ -79,6 +79,7 @@ class ListofSpotuser(LoginRequiredMixin,ListView):
 
 
 def ListofSpot(request):
+    notes=spot.objects.filter(verify=True)
     serchdistrict=searchFormbyDistrict
     if request.method == 'POST':
         filled_form=searchFormbyDistrict(request.POST)
@@ -86,9 +87,10 @@ def ListofSpot(request):
         if filled_form.is_valid():
             print('stage2')
             result=filled_form.cleaned_data['district']
-            note=spot.objects.filter(district=result)
+            print(result)
+            note=spot.objects.filter(name=result)
             return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
-    notes=spot.objects.all()
+    
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
 
 
