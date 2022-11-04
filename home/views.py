@@ -6,7 +6,8 @@ from django.views.generic import ListView,DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.views import LoginView,LogoutView
 from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict
-from django.shortcuts import redirect, render  
+from django.shortcuts import render  
+from django.db.models import Q
 #-------------------------------------------------------
 @login_required(login_url='/spots/')
 def updateTemp(request,pk):
@@ -79,18 +80,17 @@ class ListofSpotuser(LoginRequiredMixin,ListView):
 
 
 def ListofSpot(request):
-    notes=spot.objects.filter(verify=True)
+    
     serchdistrict=searchFormbyDistrict
     if request.method == 'POST':
         filled_form=searchFormbyDistrict(request.POST)
-        
         if filled_form.is_valid():
-            
             result=filled_form.cleaned_data['district']
             print(result)
-            note=spot.objects.filter(name=result)
+            note=spot.objects.filter(Q(name=result)|Q(discription__icontains=result))
+            filled_form=None
             return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
-    
+    notes=spot.objects.filter(verify=True)
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
 
 
@@ -125,11 +125,6 @@ def cretingView(request):
 #-------------------------------------------------------
 def districtView(request,value):
     print(value)
-    district=spot.objects.filter(district__district=value)
-    return render(request,'home/list.html',{'notes':district})
-
-def ListofSpot(request):
-    notes=spot.objects.filter(verify=True)
     serchdistrict=searchFormbyDistrict
     if request.method == 'POST':
         filled_form=searchFormbyDistrict(request.POST)
@@ -140,5 +135,7 @@ def ListofSpot(request):
             print(result)
             note=spot.objects.filter(name=result)
             return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
-    
-    return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
+    district=spot.objects.filter(district__district=value)
+    return render(request,'home/list.html',{'notes':district,'searchdis':serchdistrict})
+
+
