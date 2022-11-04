@@ -1,11 +1,12 @@
 {%extends 'base.html'%}
 {%block content%}
 <h1>home</h1>
-{%for spot in spots %}
+{%for spot in district %}
 <div>
-    <img src="{{ spot.image.url }}" width="150" height="100"/>
-<p>{{spot.name}}</p>
-<p2>{{spot.discription}}</p2>
+ <!--  <img src="" width="150" height="100"/>  --> 
+
+<a href="{% url 'district' spot.district %}">{{spot.district}}</a>
+
 </div>
 {%endfor%}
 <a href="{% url 'logout'%}">LOGOUT</a>

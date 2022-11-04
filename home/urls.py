@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout',views.LogoutView.as_view(template_name='home/logout.html'),name='logout'),
     path('signup',views.register,name='signup'),
     path('<int:pk>/delete',views.DeleteTemp.as_view(),name='delete'),
+    path('<str:value>/districtvise',views.districtView,name='district')
 ]

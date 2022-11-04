@@ -1,11 +1,13 @@
 {%extends 'base.html'%}
 {%block content%}
+{% if searchdis %}
 <h1>search area</h1>
 <form href="{%url 'list' %}" method='post'>{%csrf_token%}
     {{searchdis}}
     <input type="submit" value="SUBMIT">
 </form>
 <br>
+{%endif%}
 
 <h1>list</h1>
 {%for spot in notes %}
