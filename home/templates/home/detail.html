@@ -4,5 +4,12 @@
 <img src="{{ note.image.url }}" width="150" height="100"/>
 <h2>{{note.name}}</h2>
 <h1>{{note.user}}</h1>
-<a href="{% url 'home'%}">HOME</a>
+
+<br><br><br><br>
+{%if rating %}
+<h1>rating and review</h1>
+<h2>{{rating.rating}}</h2>
+<h2>{{rating.content}}</h2>
+<h3>{{rating.user}}</h3>
+{%endif%}
 {%endblock%}

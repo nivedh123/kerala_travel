@@ -1,7 +1,7 @@
 from dataclasses import fields
 from inspect import formatargspec
 from django import forms
-from .models import districts, spot
+from .models import spot,reviewmodel
 from django import forms  
 from django.contrib.auth.models import User  
 from django.contrib.auth.forms import UserCreationForm  
@@ -9,6 +9,11 @@ from django.core.exceptions import ValidationError
  
 class searchFormbyDistrict(forms.Form):
     district=forms.CharField(max_length=20)
+
+class reviewForm(forms.Form):
+    class Meta:
+        model=reviewmodel
+        fields=['content','rating']
 
 
 

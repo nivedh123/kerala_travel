@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from .models import spot,districts,remark
+from .models import spot,districts,remark,reviewmodel
 from django.views.generic import ListView,DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.views import LoginView,LogoutView
-from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict
+from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict,reviewForm
 from django.shortcuts import render  
 from django.db.models import Q
 #-------------------------------------------------------
@@ -93,15 +93,24 @@ def ListofSpot(request):
     notes=spot.objects.filter(verify=True)
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
 
-
-
+#model=spot
+#   context_object_name='note'
+#  template_name='home/detail.html'
 
 
 #-------------------------------------------------------
-class DetailofSpot(DetailView):
-    model=spot
-    context_object_name='note'
-    template_name='home/detail.html'
+def DetailofSpot(request,pk):
+    details=spot.objects.get(pk=pk)
+    try:
+        rating=reviewmodel.objects.get(spot=details)
+        return render(request,'home/detail.html',{'note':details,'rating':rating})
+    except:
+        
+        return render(request,'home/detail.html',{'note':details})
+        
+
+
+
 
 #-------------------------------------------------------
 @login_required(login_url='/login/')
