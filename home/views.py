@@ -6,7 +6,7 @@ from django.views.generic import ListView,DetailView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.views import LoginView,LogoutView
 from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict,reviewForm
-from django.shortcuts import render  
+from django.shortcuts import render,redirect
 from django.db.models import Q
 #-------------------------------------------------------
 @login_required(login_url='/spots/')
@@ -88,8 +88,8 @@ def ListofSpot(request):
             result=filled_form.cleaned_data['district']
             print(result)
             note=spot.objects.filter(Q(name=result)|Q(discription__icontains=result))
-            filled_form=None
-            return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
+            newfilled_form=searchFormbyDistrict
+            return render(request,'home/list.html',{'notes':note,'searchdis':newfilled_form})
     notes=spot.objects.filter(verify=True)
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
 
@@ -112,8 +112,11 @@ def DetailofSpot(request,pk):
             profile.save()
             note='your review Posted'
             request.method=None
+            newaddreview=reviewForm
+            ratings=reviewmodel.objects.filter(spot=details)
+            return redirect(DetailofSpot,pk=details.pk)
     try:
-        ratings=reviewmodel.objects.filter(spot=details)
+        ratings=reviewmodel.objects.filter(spot=details).order_by('-date')
         return render(request,'home/detail.html',{'note':details,'ratings':ratings,'addingreview':addreview,'pop':note})
     except:
          return render(request,'home/detail.html',{'note':details,'addingreview':addreview})
@@ -134,8 +137,8 @@ def cretingView(request):
             profile.save()
             place_name=filled_form.cleaned_data['name']
             note="%s added" %place_name
-            form=spotform
-            return render(request,'home/create.html',{"form":form,'note':note})
+            nform=spotform
+            return redirect(cretingView)
         note='ERROR OCCURED!!'
         form=spotform
         return render(request,'home/create.html',{"form":nform,'note':note})
