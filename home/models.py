@@ -2,7 +2,7 @@ from email.policy import default
 from statistics import mode
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator 
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
@@ -38,6 +38,7 @@ class spot(models.Model):
     type=models.ForeignKey(remark,on_delete=models.CASCADE)
     warning=models.TextField()
     verify=models.BooleanField(default=False)
+
     #rating=models.FloatField(default=5)
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
@@ -52,5 +53,7 @@ class spot(models.Model):
 class reviewmodel(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
     content=models.TextField()
+    rating=models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     date=models.DateTimeField(auto_now_add=True)
     spot=models.ForeignKey(spot,on_delete=models.CASCADE,related_name='reviewmodel')
+    
