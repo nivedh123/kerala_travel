@@ -56,4 +56,6 @@ class reviewmodel(models.Model):
     rating=models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     date=models.DateTimeField(auto_now_add=True)
     spot=models.ForeignKey(spot,on_delete=models.CASCADE,related_name='reviewmodel')
+    def __str__(self):
+        return str(self.spot)
     

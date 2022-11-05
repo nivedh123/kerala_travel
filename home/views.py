@@ -101,12 +101,22 @@ def ListofSpot(request):
 #-------------------------------------------------------
 def DetailofSpot(request,pk):
     details=spot.objects.get(pk=pk)
+    addreview=reviewForm
+    note=''
+    if request.method=='POST':
+        filled_form=reviewForm(request.POST)
+        if filled_form.is_valid():
+            profile=filled_form.save(commit=False)
+            profile.user=request.user
+            profile.spot=details
+            profile.save()
+            note='your review Posted'
+            request.method=None
     try:
-        rating=reviewmodel.objects.get(spot=details)
-        return render(request,'home/detail.html',{'note':details,'rating':rating})
+        ratings=reviewmodel.objects.filter(spot=details)
+        return render(request,'home/detail.html',{'note':details,'ratings':ratings,'addingreview':addreview,'pop':note})
     except:
-        
-        return render(request,'home/detail.html',{'note':details})
+         return render(request,'home/detail.html',{'note':details,'addingreview':addreview})
         
 
 

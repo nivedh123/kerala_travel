@@ -1,15 +1,25 @@
 {%extends 'base.html'%}
 {%block content%}
 <h1>detail</h1>
-<img src="{{ note.image.url }}" width="150" height="100"/>
+<img src="{{ note.image.url }}" width="800" height="450"/>
 <h2>{{note.name}}</h2>
 <h1>{{note.user}}</h1>
 
 <br><br><br><br>
-{%if rating %}
 <h1>rating and review</h1>
+{{pop}}
+<form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
+    {{addingreview.as_p}}
+    <input type="submit" value="POST">
+</form>
+<br>
+
+{% for rating in ratings %}
+<h1>-----------------------------</h1>
 <h2>{{rating.rating}}</h2>
 <h2>{{rating.content}}</h2>
 <h3>{{rating.user}}</h3>
-{%endif%}
+<h3>{{rating.date}}</h3>
+
+{%endfor%}
 {%endblock%}

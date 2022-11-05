@@ -10,7 +10,7 @@ from django.core.exceptions import ValidationError
 class searchFormbyDistrict(forms.Form):
     district=forms.CharField(max_length=20)
 
-class reviewForm(forms.Form):
+class reviewForm(forms.ModelForm):
     class Meta:
         model=reviewmodel
         fields=['content','rating']
