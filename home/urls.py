@@ -10,7 +10,10 @@ urlpatterns = [
     path('<int:pk>/edit/',views.updateTemp,name='edit'),
     path('login/',views.LoginTemp.as_view(),name='login'),
     path('logout',views.LogoutView.as_view(template_name='home/logout.html'),name='logout'),
-    path('signup',views.register,name='signup'),
+    path('signup',views.register.as_view(),name='signup'),
     path('<int:pk>/delete',views.DeleteTemp.as_view(),name='delete'),
-    path('<str:value>/districtvise',views.districtView,name='district')
+    path('<str:value>/districtvise',views.districtView,name='district'),
+    path('reviewdelete/<int:pk>/<int:pk1>',views.DetailofSpot, name='rdelete'),
+    path('creteprofile/',views.profileview.as_view(),name='profilecreate')
+    
 ]

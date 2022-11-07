@@ -27,6 +27,19 @@ class remark(models.Model):
     def __str__(self):
         return self.alert
 
+class profilemodel(models.Model):
+    Image=models.ImageField('profile/')
+    Name=models.CharField(max_length=20)
+    Bio=models.TextField()
+    Date=models.DateTimeField(auto_now_add=True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profilemodel')
+    verify=models.BooleanField(default=False)
+    def save(self, *args, **kwargs):
+        new_image = compress(self.Image)
+        self.image = new_image
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return str(self.Name)
 
 class spot(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='spot')
@@ -38,6 +51,7 @@ class spot(models.Model):
     type=models.ForeignKey(remark,on_delete=models.CASCADE)
     warning=models.TextField()
     verify=models.BooleanField(default=False)
+    
 
     #rating=models.FloatField(default=5)
     def save(self, *args, **kwargs):

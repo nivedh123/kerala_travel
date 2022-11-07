@@ -1,13 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from .models import spot,districts,remark,reviewmodel
-from django.views.generic import ListView,DetailView
-from django.views.generic.edit import DeleteView
+from django.http import HttpResponseRedirect
+from .models import spot,districts,remark,reviewmodel,profilemodel
+from django.views.generic import ListView,DetailView,CreateView
+from django.views.generic.edit import DeleteView,CreateView
 from django.contrib.auth.views import LoginView,LogoutView
-from .forms import spotform,CustomUserCreationForm,searchFormbyDistrict,reviewForm
+from django.contrib.auth.forms import UserCreationForm
+from .forms import spotform,searchFormbyDistrict,reviewForm,profileform
 from django.shortcuts import render,redirect
 from django.db.models import Q
+from django.contrib.auth import logout
+
+
 #-------------------------------------------------------
 @login_required(login_url='/spots/')
 def updateTemp(request,pk):
@@ -34,27 +39,28 @@ def home(request):
     district_ten = districts.objects.all()
     return render(request,'home/home.html',{'district':district_ten})
 #-------------------------------------------------------
-def register(request):  
-    if request.method == 'POST':  
-        form = CustomUserCreationForm
-        filled_form=CustomUserCreationForm(request.POST)
-        if filled_form.is_valid():  
-            filled_form.save()  
-            note='new account created'
-            context = {  
-                'note':note,
-                'form':form 
-            } 
-            return render(request, 'home/signup.html', context)  
 
-    else:  
-        form = CustomUserCreationForm  
-        note='new  not account created'
-        context = {  
-                'note':note,
-                'form':form 
-            } 
-        return render(request, 'home/signup.html', context)  
+
+class register(CreateView):
+    form_class=UserCreationForm
+    template_name='home/signup.html'
+    success_url='/creteprofile/'
+    
+
+class profileview(LoginRequiredMixin,CreateView):
+    login_url='/login/'
+    model=profilemodel
+    form_class=profileform
+    context_object_name='form'
+    template_name='home/profilecreate.html'
+    success_url='/spots/' 
+    def form_valid(self, form):
+        self.object=form.save(commit=False)
+        self.object.user=self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
 
 class LogoutTemp(LogoutView):
     template_name='home/logout.html'
@@ -62,7 +68,7 @@ class LogoutTemp(LogoutView):
 
 class LoginTemp(LoginView):
     template_name='home/login.html'
-    success_url='login/'
+    success_url=''
 
 #-------------------------------------------------------
 class ListofSpotuser(LoginRequiredMixin,ListView):
@@ -97,6 +103,14 @@ def ListofSpot(request):
 #   context_object_name='note'
 #  template_name='home/detail.html'
 
+
+def deleteReview(request,pk1,pk):
+    print('stage1')
+    review=reviewmodel.objects.get(pk=pk1)
+    user_current=request.user
+    if user_current==review.user:
+        review.delete()
+    return redirect(DetailofSpot,pk=pk)
 
 #-------------------------------------------------------
 def DetailofSpot(request,pk):

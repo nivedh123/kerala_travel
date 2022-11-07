@@ -1,0 +1,5 @@
+<h1>profile creation</h1>
+<form action="{% url 'profilecreate' %}" enctype="multipart/form-data"method="post">{%csrf_token%}
+    {{form}}
+    <input type="submit" value="CREATE">
+</form>

@@ -1,9 +1,15 @@
 {%extends 'base.html'%}
 {%block content%}
+<center>
 <h1>detail</h1>
 <img src="{{ note.image.url }}" width="800" height="450"/>
 <h2>{{note.name}}</h2>
-<h1>{{note.user}}</h1>
+<h1>{{note.discription}}</h1>
+<a href="{{note.link}}" target ="_blank">location</a>
+</center>
+<h2>postedby</h2>
+<img src="{{ note.user.profilemodel.Image.url }}" width="50" height="50"/>
+<h1>{{note.user.profilemodel.Name}}</h1>
 
 <br><br><br><br>
 <h1>rating and review</h1>
@@ -20,6 +26,7 @@
 <h2>{{rating.content}}</h2>
 <h3>{{rating.user}}</h3>
 <h3>{{rating.date}}</h3>
+<a href="{%url 'rdelete' pk1=rating.id pk=note.id %}">delete</a>
 
 {%endfor%}
 {%endblock%}
