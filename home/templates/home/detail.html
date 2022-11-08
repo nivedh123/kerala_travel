@@ -8,8 +8,12 @@
 <a href="{{note.link}}" target ="_blank">location</a>
 </center>
 <h2>postedby</h2>
+<a href="{% url 'profile' pk=note.user.profilemodel.id%}">
 <img src="{{ note.user.profilemodel.Image.url }}" width="50" height="50"/>
+
+
 <h1>{{note.user.profilemodel.Name}}</h1>
+</a>
 
 <br><br><br><br>
 <h1>rating and review</h1>
@@ -26,7 +30,9 @@
 <h2>{{rating.content}}</h2>
 <h3>{{rating.user}}</h3>
 <h3>{{rating.date}}</h3>
-<a href="{%url 'rdelete' pk1=rating.id pk=note.id %}">delete</a>
+{% if rating.user == request.user %}
+<a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">delete</a>
+{% endif %}
 
 {%endfor%}
 {%endblock%}

@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>profile view</h1>
+<center>
+<img src="{{ profile.Image.url }}" width="150" height="200"/>
+<h1>{{profile.Name}}</h1>
+<h1>{{profile.Bio}}</h1>
+</center>
+date of joining <h1>{{profile.Date}}</h1>
+
+<h1>{{profile.verify}}</h1>
+
+
+
+{%endblock%}

@@ -13,8 +13,11 @@ from django.db.models import Q
 from django.contrib.auth import logout
 
 
+
+
 #-------------------------------------------------------
-@login_required(login_url='/spots/')
+
+@login_required(login_url='/login/')
 def updateTemp(request,pk):
     edit_object=spot.objects.get(pk=pk)
     form=spotform(instance=edit_object)
@@ -42,10 +45,14 @@ def home(request):
 
 
 class register(CreateView):
+    
     form_class=UserCreationForm
     template_name='home/signup.html'
     success_url='/creteprofile/'
-    
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        self.object = None
+        return super().get(request, *args, **kwargs)
 
 class profileview(LoginRequiredMixin,CreateView):
     login_url='/login/'
@@ -60,7 +67,11 @@ class profileview(LoginRequiredMixin,CreateView):
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
-
+class profileDisplay(DetailView):
+    model=profilemodel
+    template_name='home/profile.html'
+    context_object_name='profile'
+    
 
 class LogoutTemp(LogoutView):
     template_name='home/logout.html'
@@ -99,19 +110,9 @@ def ListofSpot(request):
     notes=spot.objects.filter(verify=True)
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
 
-#model=spot
-#   context_object_name='note'
-#  template_name='home/detail.html'
-
-
-def deleteReview(request,pk1,pk):
-    print('stage1')
-    review=reviewmodel.objects.get(pk=pk1)
-    user_current=request.user
-    if user_current==review.user:
-        review.delete()
-    return redirect(DetailofSpot,pk=pk)
-
+def deleteReview(request,pk,pk1):
+    reviewmodel.objects.get(pk=pk).delete()
+    return redirect(DetailofSpot,pk=pk1)
 #-------------------------------------------------------
 def DetailofSpot(request,pk):
     details=spot.objects.get(pk=pk)

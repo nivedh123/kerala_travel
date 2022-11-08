@@ -1,8 +1,7 @@
-from email.policy import default
+
 from statistics import mode
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator 
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
@@ -39,7 +38,7 @@ class profilemodel(models.Model):
         self.image = new_image
         super().save(*args, **kwargs)
     def __str__(self):
-        return str(self.Name)
+        return str(self.user)
 
 class spot(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='spot')
@@ -65,9 +64,10 @@ class spot(models.Model):
 
 
 class reviewmodel(models.Model):
+   
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
     content=models.TextField()
-    rating=models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rating=models.IntegerField(choices=((0, 'Low'),(1, 'Normal'),(2, 'High')),blank=True,null=True)
     date=models.DateTimeField(auto_now_add=True)
     spot=models.ForeignKey(spot,on_delete=models.CASCADE,related_name='reviewmodel')
     def __str__(self):
