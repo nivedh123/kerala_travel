@@ -19,10 +19,20 @@ def compress(image):
 # Create your models here.
 class districts(models.Model):
     district=models.CharField(max_length=20)
+    image=models.ImageField(blank=True,null=True)
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.district
 class remark(models.Model):
     alert=models.CharField(max_length=20)
+    image=models.ImageField(blank=True,null=True)
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.alert
 
@@ -35,7 +45,7 @@ class profilemodel(models.Model):
     verify=models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         new_image = compress(self.Image)
-        self.image = new_image
+        self.Image = new_image
         super().save(*args, **kwargs)
     def __str__(self):
         return str(self.user)
@@ -43,6 +53,8 @@ class profilemodel(models.Model):
 class spot(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='spot')
     image=models.ImageField()
+    image2=models.ImageField(blank=True,null=True)
+    image3=models.ImageField(blank=True,null=True)
     name=models.CharField(max_length=20)
     discription=models.TextField()
     link=models.URLField()
@@ -56,15 +68,16 @@ class spot(models.Model):
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
         self.image = new_image
+        new_image2 = compress(self.image2)
+        self.image2 = new_image2
+        new_image3 = compress(self.image3)
+        self.image3 = new_image3
         super().save(*args, **kwargs)
-       
-
     def __str__(self):
         return self.name
 
 
 class reviewmodel(models.Model):
-   
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
     content=models.TextField()
     rating=models.IntegerField(choices=((0, 'Low'),(1, 'Normal'),(2, 'High')),blank=True,null=True)

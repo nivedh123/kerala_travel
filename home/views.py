@@ -6,8 +6,8 @@ from .models import spot,districts,remark,reviewmodel,profilemodel
 from django.views.generic import ListView,DetailView,CreateView
 from django.views.generic.edit import DeleteView,CreateView
 from django.contrib.auth.views import LoginView,LogoutView
-from django.contrib.auth.forms import UserCreationForm
-from .forms import spotform,searchFormbyDistrict,reviewForm,profileform
+#from django.contrib.auth.forms import UserCreationForm
+from .forms import spotform,searchFormbyDistrict,reviewForm,profileform,UserCreationForm
 from django.shortcuts import render,redirect
 from django.db.models import Q
 from django.contrib.auth import logout
