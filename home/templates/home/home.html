@@ -9,5 +9,14 @@
 
 </div>
 {%endfor%}
-<a href="{% url 'logout'%}">LOGOUT</a>
+<br><br>
+{%for spot in remarks %}
+<div>
+ <!--  <img src="" width="150" height="100"/>  --> 
+
+<a href="{% url 'remark' spot.alert %}">{{spot.alert}}</a>
+
+</div>
+{%endfor%}
+
 {%endblock%}

@@ -6,7 +6,6 @@ from .models import spot,districts,remark,reviewmodel,profilemodel
 from django.views.generic import ListView,DetailView,CreateView
 from django.views.generic.edit import DeleteView,CreateView
 from django.contrib.auth.views import LoginView,LogoutView
-#from django.contrib.auth.forms import UserCreationForm
 from .forms import spotform,searchFormbyDistrict,reviewForm,profileform,UserCreationForm
 from django.shortcuts import render,redirect
 from django.db.models import Q
@@ -39,8 +38,9 @@ class DeleteTemp(LoginRequiredMixin,DeleteView):
     template_name='home/delete.html'
 #-------------------------------------------------------
 def home(request):
+    remarks=remark.objects.all()
     district_ten = districts.objects.all()
-    return render(request,'home/home.html',{'district':district_ten})
+    return render(request,'home/home.html',{'district':district_ten,'remarks':remarks})
 #-------------------------------------------------------
 
 
@@ -53,7 +53,7 @@ class register(CreateView):
         logout(request)
         self.object = None
         return super().get(request, *args, **kwargs)
-
+#-------------------------------------------------------
 class profileview(LoginRequiredMixin,CreateView):
     login_url='/login/'
     model=profilemodel
@@ -66,17 +66,17 @@ class profileview(LoginRequiredMixin,CreateView):
         self.object.user=self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-
+#-------------------------------------------------------
 class profileDisplay(DetailView):
     model=profilemodel
     template_name='home/profile.html'
     context_object_name='profile'
     
-
+#-------------------------------------------------------
 class LogoutTemp(LogoutView):
     template_name='home/logout.html'
 
-
+#-------------------------------------------------------
 class LoginTemp(LoginView):
     template_name='home/login.html'
     success_url=''
@@ -97,25 +97,24 @@ class ListofSpotuser(LoginRequiredMixin,ListView):
 
 
 def ListofSpot(request):
-    
     serchdistrict=searchFormbyDistrict
     if request.method == 'POST':
         filled_form=searchFormbyDistrict(request.POST)
         if filled_form.is_valid():
             result=filled_form.cleaned_data['district']
             print(result)
-            note=spot.objects.filter(Q(name=result)|Q(discription__icontains=result))
+            note=spot.objects.filter(Q(name=result)|Q(discription__icontains=result),verify=True)
             newfilled_form=searchFormbyDistrict
             return render(request,'home/list.html',{'notes':note,'searchdis':newfilled_form})
     notes=spot.objects.filter(verify=True)
     return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
-
+#-------------------------------------------------------
 def deleteReview(request,pk,pk1):
     reviewmodel.objects.get(pk=pk).delete()
     return redirect(DetailofSpot,pk=pk1)
 #-------------------------------------------------------
 def DetailofSpot(request,pk):
-    details=spot.objects.get(pk=pk)
+    details=spot.objects.get(pk=pk,verify=True)
     addreview=reviewForm
     note=''
     if request.method=='POST':
@@ -127,7 +126,6 @@ def DetailofSpot(request,pk):
             profile.save()
             note='your review Posted'
             request.method=None
-            newaddreview=reviewForm
             ratings=reviewmodel.objects.filter(spot=details)
             return redirect(DetailofSpot,pk=details.pk)
     try:
@@ -161,18 +159,24 @@ def cretingView(request):
 
 #-------------------------------------------------------
 def districtView(request,value):
-    print(value)
     serchdistrict=searchFormbyDistrict
     if request.method == 'POST':
         filled_form=searchFormbyDistrict(request.POST)
-        
-        if filled_form.is_valid():
-            
+        if filled_form.is_valid():   
             result=filled_form.cleaned_data['district']
-            print(result)
-            note=spot.objects.filter(name=result)
+            note=spot.objects.filter(name=result,verify=True)
             return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
-    district=spot.objects.filter(district__district=value)
+    district=spot.objects.filter(district__district=value,verify=True)
     return render(request,'home/list.html',{'notes':district,'searchdis':serchdistrict})
-
+#-------------------------------------------------------
+def remarkView(request,value):
+    serchdistrict=searchFormbyDistrict
+    if request.method == 'POST':
+        filled_form=searchFormbyDistrict(request.POST)
+        if filled_form.is_valid():   
+            result=filled_form.cleaned_data['district']
+            note=spot.objects.filter(name=result,verify=True)
+            return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
+    remark=spot.objects.filter(type__alert=value,verify=True)
+    return render(request,'home/list.html',{'notes':remark,'searchdis':serchdistrict})
 
