@@ -68,10 +68,16 @@ class spot(models.Model):
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
         self.image = new_image
-        new_image2 = compress(self.image2)
-        self.image2 = new_image2
-        new_image3 = compress(self.image3)
-        self.image3 = new_image3
+        try:
+            new_image2 = compress(self.image2)
+            self.image2 = new_image2
+        except:
+            pass
+        try:
+            new_image3 = compress(self.image3)
+            self.image3 = new_image3
+        except:
+            pass
         super().save(*args, **kwargs)
     def __str__(self):
         return self.name

@@ -18,10 +18,22 @@ from django.contrib.auth import logout
 
 @login_required(login_url='/login/')
 def updateTemp(request,pk):
-    edit_object=spot.objects.get(pk=pk)
+    edit_object=spot.objects.get(pk=pk,user=request.user)
     form=spotform(instance=edit_object)
     if request.method == 'POST':
         filled_form=spotform(request.POST,request.FILES,instance=edit_object)
+        if filled_form.is_valid():
+            filled_form.save()
+            form=filled_form
+            note="updated"
+            return render(request,'home/edit.html',{'form':form,'edit':edit_object,'note':note})
+    return render(request,'home/edit.html',{'form':form,'edit':edit_object})
+
+def profileeditview(request,pk):
+    edit_object=profilemodel.objects.get(pk=pk,user=request.user)
+    form=profileform(instance=edit_object)
+    if request.method == 'POST':
+        filled_form=profileform(request.POST,request.FILES,instance=edit_object)
         if filled_form.is_valid():
             filled_form.save()
             form=filled_form
@@ -82,13 +94,11 @@ class LoginTemp(LoginView):
     success_url=''
 
 #-------------------------------------------------------
-class ListofSpotuser(LoginRequiredMixin,ListView):
-    model=spot
-    context_object_name='notes'
-    template_name='home/listuser.html'
-    login_url='/login/'
-    def get_queryset(self):
-        return self.request.user.spot.all()
+def ListofSpotuser(request):
+    spots=spot.objects.filter(user=request.user)
+    profile=profilemodel.objects.get(user=request.user)
+    return render(request,'home/listuser.html',{'profile':profile,'notes':spots})
+
 #-------------------------------------------------------
 
 

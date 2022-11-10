@@ -1,6 +1,16 @@
 {%extends 'base.html'%}
 {%block content%}
-<h1>listuser</h1>
+<center>
+<h1>profilepage</h1>
+<img src="{{ profile.Image.url }}" width="150" height="200"/>
+<p>{{profile.user}}</p>
+<h2>{{profile.Name}}</h2>
+<h2>{{profile.Bio}}</h2>
+<h3>Date of joining:{{profile.Date}}</h3>
+<a href="{% url 'profileedit'  pk=profile.id%}">profile edit</a>
+</center>
+<br>
+<h2>contributions</h2>
 {%for spot in notes %}
 <br>
 <br>
