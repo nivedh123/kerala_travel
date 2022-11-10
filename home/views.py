@@ -52,7 +52,7 @@ class DeleteTemp(LoginRequiredMixin,DeleteView):
 def home(request):
     remarks=remark.objects.all()
     district_ten = districts.objects.all()
-    return render(request,'home/home.html',{'district':district_ten,'remarks':remarks})
+    return render(request,'home/index.html',{'district':district_ten,'remarks':remarks})
 #-------------------------------------------------------
 
 
