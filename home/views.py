@@ -81,7 +81,7 @@ class profileview(LoginRequiredMixin,CreateView):
 #-------------------------------------------------------
 class profileDisplay(DetailView):
     model=profilemodel
-    template_name='home/about.html'
+    template_name='home/profile.html'
     context_object_name='profile'
     
 #-------------------------------------------------------

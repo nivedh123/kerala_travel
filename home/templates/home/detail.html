@@ -1,41 +1,107 @@
+
 {%extends 'base.html'%}
 {%block content%}
-<center>
-<h1>detail</h1>
-<img src="{{ note.image.url }}" width="800" height="450"/>
-<h1>{{note.verify}}</h1>
-<h2>{{note.name}}</h2>
-<h1>{{note.discription|safe}}</h1>
-<h2>{{note.type}}</h2>
-<iframe src="{{note.link}}" height="200" width="300" title="Iframe Example"></iframe>
-<a href="{{note.link}}" target ="_blank">location</a>
-</center>
-<h2>postedby</h2>
-<a href="{% url 'profile' pk=note.user.profilemodel.id%}">
-<img src="{{ note.user.profilemodel.Image.url }}" width="50" height="50"/>
 
+<main id="main" data-aos="fade" data-aos-delay="1500">
 
-<h1>{{note.user.profilemodel.Name}}</h1>
-</a>
+    <!-- ======= End Page Header ======= -->
+    <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>Kozhikode Beach</h2>
+            <p>
+              Kozhikode will always have a special place in the history of Kerala as it is here that Vasco-da-Gama first landed and the legendary Spice Route came into existence..</p>
 
-<br><br><br><br>
-<h1>rating and review</h1>
-{{pop}}
-<form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
-    {{addingreview.as_p}}
-    <input type="submit" value="POST">
-</form>
-<br>
+              <strong><a href="{{note.link}}" class="btn-visit align-self-start">Location</a></strong>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Page Header -->
 
-{% for rating in ratings %}
-<h1>-----------------------------</h1>
-<h2>{{rating.rating}}</h2>
-<h2>{{rating.content}}</h2>
-<h3>{{rating.user}}</h3>
-<h3>{{rating.date}}</h3>
-{% if rating.user == request.user %}
-<a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">delete</a>
-{% endif %}
+    <!-- ======= Gallery Single Section ======= -->
+    <section id="gallery-single" class="gallery-single">
+      <div class="container">
 
-{%endfor%}
-{%endblock%}
+        <div class="position-relative h-100">
+          <div class="slides-1 portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+
+              <div class="swiper-slide">
+                <img src="{{ note.image.url }}" alt="">
+              </div>
+              
+              <div class="swiper-slide">
+                <img src="{{ note.image2.url }}" alt="">
+              </div>
+              
+              <div class="swiper-slide">
+                <img src="{{ note.image3.url }}" alt="">
+              </div>
+              
+
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+        </div>
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-description">
+              <h2>{{note.name}}</h2>
+              
+              <p>
+                {{note.discription|safe}}
+              </p>
+              {% for rating in ratings %}
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  {{rating.content}}
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div>
+                  <img src="{{rating.user.profilemodel.Image.url}}" class="testimonial-img" alt="">
+                  <h3>{{rating.rating}}</h3>
+                  <h4>{{rating.user.profilemodel.Name}}</h4>
+                  <h5>{{rating.date}}</h5>
+                  {% if rating.user == request.user %}
+                 <h6> <a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">delete</a></h6>
+                  {% endif %}
+                </div>
+              </div>
+              {%endfor%}
+            </div>
+            <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
+                {{addingreview}}
+                <input type="submit" value="POST">
+            </form>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="portfolio-info">
+              <h3>Contributer information</h3>
+              <ul>
+                <a href="{% url 'profile' pk=note.user.profilemodel.id%}">
+                <li><img src="{{note.user.profilemodel.Image.url}}" class="testimonial-img" alt=""></li>
+                <li><strong>Contributer</strong> <span>{{note.user.profilemodel.Name}}</span></li>
+                <li><strong>Bio</strong> <span>{{note.user.profilemodel.Name|truncatechars:10}}</span></li>
+                <li><strong>Publish time</strong> <span>{{note.date}}</span></li>
+            </a>
+                
+                <li><a href="{{note.link}}" class="btn-visit align-self-start">instagram</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Gallery Single Section -->
+
+  </main><!-- End #main -->
+  {%endblock%}
