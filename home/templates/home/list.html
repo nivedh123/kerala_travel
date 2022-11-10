@@ -1,25 +1,49 @@
+
+
+
 {%extends 'base.html'%}
 {%block content%}
 {% if searchdis %}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
 <h1>search area</h1>
 <form href="{%url 'list' %}" method='post'>{%csrf_token%}
     {{searchdis}}
-    <input type="submit" value="SUBMIT">
+    <input type="submit" class="btn btn-primary" value="SUBMIT">
 </form>
-<br>
-{%endif%}
-
-<h1>list</h1>
-{%for spot in notes %}
-<div>
-    <a href="{%url 'detail' pk=spot.id %}">
-    <img src="{{ spot.image.url }}" width="150" height="100"/>
-<p>{{spot.name}}</p>
-<p2>{{spot.discription|truncatechars:20|safe}}</p2>
-<p>{{spot.user.profilemodel.Name}}</p>
-<p>{{spot.district}}</p>
-</a>
 </div>
-{%endfor%}
-<a href="{% url 'home'%}">HOME</a>
-{%endblock%}
+</div>
+</div>
+</section><!-- End Hero Section --
+{%endif%}
+<main id="main" data-aos="fade" data-aos-delay="1500">
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+        
+      <div class="container-fluid">
+        
+        <div class="row gy-4 justify-content-center">
+            {%for spot in notes %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+            
+            <div class="gallery-item h-100">
+
+                <img src="{{ spot.image.url }}" class="img-fluid" alt="">
+              <h5>{{spot.name}}</h5>
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="{%url 'detail' pk=spot.id %}"><i>{{spot.discription|truncatechars:10|safe}}</i></a>
+              </div>
+            </div>            
+          </div><!-- End Gallery Item -->
+          {%endfor%}
+        </div>
+        
+      </div>
+      
+    </section><!-- End Gallery Section -->
+
+  </main><!-- End #main -->
+  {%endblock%}

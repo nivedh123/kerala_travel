@@ -1,23 +1,52 @@
 {%extends 'base.html'%}
 {%block content%}
-<h1>home</h1>
-{%for spot in district %}
-<div>
- <!--  <img src="" width="150" height="100"/>  --> 
 
-<a href="{% url 'district' spot.district %}">{{spot.district}}</a>
 
-</div>
-{%endfor%}
-<br><br>
-{%for spot in remarks %}
-<div>
- <!--  <img src="" width="150" height="100"/>  --> 
- <p>Just try</p>
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>We are<span>Travel Partners</span> - Help you to see the fantansies near you</h2>
+          <p>Kerala - Gods own country.</p>
+          <a href="" class="btn-get-started">About Us </a>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
 
-<a href="{% url 'remark' spot.alert %}">{{spot.alert}}</a>
+  <main id="main" data-aos="fade" data-aos-delay="1500">
 
-</div>
-{%endfor%}
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+        
+      <div class="container-fluid">
+        
+        <div class="row gy-4 justify-content-center">
+            {%for spot in district %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+            
+            <div class="gallery-item h-100">
+              
+              <img src="{{spot.image.url}}" class="img-fluid" alt="">
+              <h5>{{spot.district}}</h5>
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="{% url 'district' spot.district %}"><i>{{spot.district}}</i></a>
+              </div>
+            </div>
+            
+          </div><!-- End Gallery Item -->
+          {%endfor%}
 
+        </div>
+        
+      </div>
+      
+    </section><!-- End Gallery Section -->
+
+  </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+ 
 {%endblock%}

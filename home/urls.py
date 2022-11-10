@@ -16,6 +16,7 @@ urlpatterns = [
     path('<str:value>/remarkvise',views.remarkView,name='remark'),
     path('reviewdelete/<int:pk>/<int:pk1>',views.deleteReview, name='rdelete'),
     path('creteprofile/',views.profileview.as_view(),name='profilecreate'),
+    path('about/',views.Tempv.as_view(),name='about'),
     path('<int:pk>/profileedit',views.profileeditview,name='profileedit'),
     path('profile/XXXtru=568289482432832494rrjdgnvgru85<int:pk>/hhjfngjvvf=jrtngnfnjxnxnjgfn/jgfncknjtx=nudnfbkbn',views.profileDisplay.as_view(),name='profile')
 ]

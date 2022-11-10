@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import spot,districts,remark,reviewmodel,profilemodel
-from django.views.generic import ListView,DetailView,CreateView
+from django.views.generic import ListView,DetailView,CreateView,TemplateView
 from django.views.generic.edit import DeleteView,CreateView
 from django.contrib.auth.views import LoginView,LogoutView
 from .forms import spotform,searchFormbyDistrict,reviewForm,profileform,UserCreationForm
@@ -52,7 +52,7 @@ class DeleteTemp(LoginRequiredMixin,DeleteView):
 def home(request):
     remarks=remark.objects.all()
     district_ten = districts.objects.all()
-    return render(request,'home/index.html',{'district':district_ten,'remarks':remarks})
+    return render(request,'home/home.html',{'district':district_ten,'remarks':remarks})
 #-------------------------------------------------------
 
 
@@ -81,7 +81,7 @@ class profileview(LoginRequiredMixin,CreateView):
 #-------------------------------------------------------
 class profileDisplay(DetailView):
     model=profilemodel
-    template_name='home/profile.html'
+    template_name='home/about.html'
     context_object_name='profile'
     
 #-------------------------------------------------------
@@ -190,3 +190,5 @@ def remarkView(request,value):
     remark=spot.objects.filter(type__alert=value,verify=True)
     return render(request,'home/list.html',{'notes':remark,'searchdis':serchdistrict})
 
+class Tempv(TemplateView):
+    template_name='home/about.html'
