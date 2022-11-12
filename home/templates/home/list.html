@@ -8,27 +8,29 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
-<h1>search area</h1>
-<form href="{%url 'list' %}" method='post'>{%csrf_token%}
+
+<center>
+<form style='color:aquamarine' href="{%url 'list' %}" method='post'>{%csrf_token%}
     {{searchdis}}
-    <input type="submit" class="btn btn-primary" value="SUBMIT">
+    <input type="submit" class="btn-get-started" value="GO">
 </form>
+</center>
 </div>
 </div>
 </div>
-</section><!-- End Hero Section --
+</section><!-- End Hero Section -->
 {%endif%}
 <main id="main" data-aos="fade" data-aos-delay="1500">
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
-        
+      
       <div class="container-fluid">
-        
+       
         <div class="row gy-4 justify-content-center">
-            {%for spot in notes %}
+          {%for spot in notes %}
             <div class="col-xl-3 col-lg-4 col-md-6">
-            
+              
             <div class="gallery-item h-100">
 
                 <img src="{{ spot.image.url }}" class="img-fluid" alt="">
@@ -36,9 +38,10 @@
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="{%url 'detail' pk=spot.id %}"><i>{{spot.discription|truncatechars:10|safe}}</i></a>
               </div>
-            </div>            
+            </div>  
+                     
           </div><!-- End Gallery Item -->
-          {%endfor%}
+          {%endfor%} 
         </div>
         
       </div>

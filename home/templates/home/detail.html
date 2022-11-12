@@ -9,9 +9,11 @@
       <div class="container position-relative">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
-            <h2>Kozhikode Beach</h2>
+            <h2>{{note.name}}</h2>
+            <h3 style="color:aquamarine">{{note.district}}</h3>
             <p>
-              Kozhikode will always have a special place in the history of Kerala as it is here that Vasco-da-Gama first landed and the legendary Spice Route came into existence..</p>
+              {{note.short_discription}}
+            </p>
 
               <strong><a href="{{note.link}}" class="btn-visit align-self-start">Location</a></strong>
           </div>
@@ -57,6 +59,12 @@
               <p>
                 {{note.discription|safe}}
               </p>
+              <div style="color:red;">
+              <p>{{note.warning|safe}}</p>
+              </div>
+              <div style="color:grey;">
+                <p>{{note.key_words|safe}}</p>
+              </div>
               {% for rating in ratings %}
               <div class="testimonial-item">
                 <p>
@@ -70,16 +78,18 @@
                   <h4>{{rating.user.profilemodel.Name}}</h4>
                   <h5>{{rating.date}}</h5>
                   {% if rating.user == request.user %}
-                 <h6> <a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">delete</a></h6>
+                 <h6> <a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">Remove</a></h6>
                   {% endif %}
                 </div>
               </div>
               {%endfor%}
-            </div>
+              
+            </div>{%if request.user.is_authenticated %}
             <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
                 {{addingreview}}
                 <input type="submit" value="POST">
             </form>
+            {%endif%}
           </div>
 
           <div class="col-lg-3">

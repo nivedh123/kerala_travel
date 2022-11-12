@@ -1,8 +1,16 @@
 {%extends 'base.html'%}
 {%block content%}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div>
+<main id="main" data-aos="fade" data-aos-delay="1500">
+    <div>
 <h1>signup</h1>
 <form action="{% url 'signup'%}" method="post">{%csrf_token%}
     {{form.as_p}}
     <input type="submit" value="signup">
 </form>
+</div>
+</main>
 {%endblock%}

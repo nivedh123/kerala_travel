@@ -1,5 +1,9 @@
 {%extends 'base.html'%}
 {%block content%}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div>
 <h1>{{note}}</h1>
 <form  enctype="multipart/form-data" method="post">
     {%csrf_token%}
@@ -7,4 +11,8 @@
     <input type="submit"  value="ENTER">
 </form>
 <a href="{% url 'home'%}">HOME</a>
+</div>
+</div>
+</div>
+</section>
 {%endblock%}

@@ -1,8 +1,16 @@
 {%extends 'base.html'%}
 {%block content%}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div>
 <form method="POST">{%csrf_token%}
     {{form.as_p}}
 <input type="submit" value="LOGIN">
 </form>
 <a href="{% url 'reset_password'%}">forget password</a>
+</div>
+</div>
+</div>
+</section>
 {%endblock%}

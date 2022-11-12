@@ -1,8 +1,16 @@
 {%extends 'base.html'%}
 {%block content%}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div>
 <h1>profile creation</h1>
 <form action="{% url 'profilecreate' %}" enctype="multipart/form-data" method="post">{%csrf_token%}
     {{form}}
     <input type="submit" value="CREATE">
 </form>
+</div>
+</div>
+</div>
+</section>
 {%endblock%}
