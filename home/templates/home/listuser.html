@@ -1,29 +1,95 @@
+
+
 {%extends 'base.html'%}
 {%block content%}
-<center>
-<h1>profilepage</h1>
-<img src="{{ profile.Image.url }}" width="150" height="200"/>
-<p>{{profile.user}}</p>
-<h2>{{profile.Name}}</h2>
-<h2>{{profile.Bio}}</h2>
-<h3>Date of joining:{{profile.Date}}</h3>
-<a href="{% url 'profileedit'  pk=profile.id%}">profile edit</a>
-</center>
-<br>
-<h2>contributions</h2>
-{%for spot in notes %}
-<br>
-<br>
-<div>
-    <a href="{%url 'detail' pk=spot.id %}"></a>
-    <img src="{{ spot.image.url }}" width="150" height="100"/>
-<p>{{spot.name}}</p>
-</a>
-<a href="{%url 'delete' pk=spot.id %}">delete</a>
-<a href="{%url 'edit' pk=spot.id %}">edit</a>
-<p2>{{spot.discription|truncatechars:20}}</p2>
-<p>{{spot.user}}</p>
-</div>
-{%endfor%}
-<a href="{% url 'home'%}">HOME</a>
-{%endblock%}
+<main id="main" data-aos="fade" data-aos-delay="1500">
+
+    <!-- ======= End Page Header ======= -->
+    <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>{{profile.Name}}</h2>
+            <a href="{{profile.link}}" class="cta-btn" >Connect</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Page Header -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="{{ profile.Image.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-5 content">
+            <h2>{{profile.Bio_head}}</h2>
+            <p class="fst-italic py-3">
+              {{profile.Bio}}
+            </p>
+            <div class="row">
+              <div class="col-lg-6">
+                <ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Date joining:</strong> <span>{{profile.Date}}</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>place:</strong> <span>www.example.com</span></li>
+                  
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul></ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Connect:</strong> <span>{{profile.link}}</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>Master@gmail.com</span></li>
+                </ul>
+              </div>
+            </div>
+            <p class="py-3">
+                <a href="{% url 'profileedit'  pk=profile.id%}">profile edit</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Testimonials</h2>
+          <p>What they are saying</p>
+        </div>
+
+        <div class="slides-3 swiper">
+          <div class="swiper-wrapper">
+            {%for spot in notes %}
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h3>{{spot.type.alert}}</h3>
+                </div>
+                    <a href="{%url 'delete' pk=spot.id %}" class="cta-btn">delete</a>
+                    <a href="{%url 'edit' pk=spot.id %}" class="cta-btn">edit</a>
+                  <img src="{{ spot.image.url }}" class="cta-btn" alt="">
+                <div class="profile mt-auto">
+                    
+                  <h3>{{spot.name}}</h3>
+                  <h4>{{spot.date}}</h4>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            {%endfor%}
+           <!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+  </main><!-- End #main -->
+  {%endblock%}

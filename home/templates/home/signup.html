@@ -5,12 +5,16 @@
       <div class="row justify-content-center">
         <div>
 <main id="main" data-aos="fade" data-aos-delay="1500">
+    <center>
     <div>
-<h1>signup</h1>
-<form action="{% url 'signup'%}" method="post">{%csrf_token%}
-    {{form.as_p}}
+
+<form style="background-color:rgb(51, 69, 50) ;"  action="{% url 'signup'%}" method="post">{%csrf_token%}
+    <table>
+    {{form.as_table}}
+</table>
     <input type="submit" value="signup">
 </form>
 </div>
+</center>
 </main>
 {%endblock%}

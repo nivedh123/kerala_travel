@@ -19,8 +19,8 @@
 /* Colors */
 :root {
   --color-default: #fafafa;
-  --color-primary: #27a776;
-  --color-secondary: #161718;
+  --color-primary: #83a727;
+  --color-secondary: #223e59;
 }
 
 /* Smooth scroll behavior */
@@ -134,7 +134,7 @@ h6 {
 }
 
 .page-header .cta-btn:hover {
-  background: #2cbc85;
+  background: #229aaf;
 }
 
 /*--------------------------------------------------------------

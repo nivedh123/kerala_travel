@@ -4,11 +4,13 @@
     <div class="container">
       <div class="row justify-content-center">
         <div>
+            <center>
 <form method="POST">{%csrf_token%}
     {{form.as_p}}
 <input type="submit" value="LOGIN">
 </form>
 <a href="{% url 'reset_password'%}">forget password</a>
+</center>
 </div>
 </div>
 </div>
