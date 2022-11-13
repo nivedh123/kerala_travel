@@ -3,7 +3,6 @@
 <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
     <div class="container">
       <div class="row justify-content-center">
-        <div>
             <center>
                 
 <form method="POST">{%csrf_token%}
@@ -12,7 +11,7 @@
 </form>
 <div>
 <a href="{% url 'reset_password'%}" >forget password?   </a>&nbsp;&nbsp;&nbsp;
-<a href="">register</a>
+<a href="{%url 'signup' %}">register</a>
 </div>
 </center>
 </div>
