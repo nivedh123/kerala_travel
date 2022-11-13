@@ -87,7 +87,7 @@
             </div>{%if request.user.is_authenticated %}
             <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
                 {{addingreview}}
-                <input type="submit" value="POST">
+                <input type="submit" class="btn cta-btn" value="POST">
             </form>
             {%endif%}
           </div>

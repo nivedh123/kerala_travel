@@ -5,11 +5,15 @@
       <div class="row justify-content-center">
         <div>
             <center>
+                
 <form method="POST">{%csrf_token%}
     {{form.as_p}}
-<input type="submit" value="LOGIN">
+<input type="submit" value="LOGIN" class="btn btn-success">
 </form>
-<a href="{% url 'reset_password'%}">forget password</a>
+<div>
+<a href="{% url 'reset_password'%}" >forget password?   </a>&nbsp;&nbsp;&nbsp;
+<a href="">register</a>
+</div>
 </center>
 </div>
 </div>

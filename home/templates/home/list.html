@@ -10,9 +10,12 @@
         <div class="col-lg-6 text-center">
 
 <center>
-<form style='color:aquamarine' href="{%url 'list' %}" method='post'>{%csrf_token%}
+<form href="{%url 'list' %}" class="form-inline" method='post'>{%csrf_token%}
+
     {{searchdis}}
-    <input type="submit" class="btn-get-started" value="GO">
+  
+    <input type="submit" class="btn btn-success" value="GO">
+
 </form>
 </center>
 </div>

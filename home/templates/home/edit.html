@@ -5,11 +5,15 @@
       <div class="row justify-content-center">
         <div>
 <h1>{{note}}</h1>
+<center>
 <form  enctype="multipart/form-data" method="post">
     {%csrf_token%}
-    {{form.as_p}}
-    <input type="submit"  value="ENTER">
+    <table class="table table-striped table-dark">
+    {{form.as_table}}
+</table>
+    <input type="submit" class="btn btn-success" value="ENTER">
 </form>
+</center>
 </div>
 </div>
 </div>

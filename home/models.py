@@ -72,8 +72,8 @@ class spot(models.Model):
     link=models.URLField()
     district=models.ForeignKey(districts,on_delete=models.CASCADE)
     type=models.ForeignKey(remark,on_delete=models.CASCADE)
-    warning=models.TextField(help_text='give any spetial advise or any spectial local warning here')
-    key_words=models.TextField(help_text='keyword must start with %,keyword just give your contribution more expo!')
+    warning=models.TextField(help_text='give any special advise or any special local warning here')
+    key_words=models.TextField(help_text='keyword must start with %,keywords give your contribution more expo!')
     date=models.DateTimeField(auto_now_add=True)
     verify=models.BooleanField(default=False)
     
