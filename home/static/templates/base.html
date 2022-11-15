@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>PhotoFolio Bootstrap Template - Index</title>
+  <title>Travelling</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,13 +37,13 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<body>
+<body >
 
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center fixed-top">
       <div class="container-fluid d-flex align-items-center justify-content-between">
   
-        <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0">
+        <a href="{%url 'home' %}" class="logo d-flex align-items-center  me-auto me-lg-0">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
           <i class="bi bi-camera"></i>
@@ -52,8 +52,10 @@
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a href="#" class="active">Home</a></li>
+            <li><a href="{%url 'home'%}" class="active">Home</a></li>
+            <li><a href="{%url 'list'%}" class="active">Spots</a></li>
             <li><a href="#">About</a></li>
+            
             <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
                 <li><a href="">Nature</a></li>
@@ -71,8 +73,16 @@
                 </li>
               </ul>
             </li>
-            <li><a href="">Services</a></li>
+            {%if request.user.is_authenticated %}
+            <li><a href="{% url 'listuser'%}">My profile</a></li>
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+            <li><a href="{%url 'create'%}" class="active">Contribute</a></li>
             <li><a href="">Contact</a></li>
+            {%else%}
+            <li><a href="{%url 'login'%}" class="active">Login</a></li>
+            <li><a href="{%url 'signup'%}" class="active">Signup</a></li>
+            {%endif%}
+
           </ul>
         </nav><!-- .navbar -->
   
@@ -97,14 +107,14 @@
 <footer id="footer" class="footer">
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>PhotoFolio</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Travel Partners</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
       </div>
     </div>
   </footer><!-- End Footer -->
@@ -129,5 +139,3 @@
 
 
 </html>
-
-

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
      #custom
     'django_cleanup.apps.CleanupConfig',
+    'django.contrib.postgres',
      #-------
     'django.contrib.messages',
     'django.contrib.staticfiles',

@@ -18,9 +18,9 @@
 
 /* Colors */
 :root {
-  --color-default: #fafafa;
-  --color-primary: #27a776;
-  --color-secondary: #161718;
+  --color-default: #fbeded;
+  --color-primary:rgb(177, 0, 0);
+  --color-secondary: #00000075;
 }
 
 /* Smooth scroll behavior */
@@ -34,7 +34,10 @@
 body {
   font-family: var(--font-default);
   color: var(--color-default);
-  background-color: #000;
+  background-image: url('/media/html/2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
 }
 
 a {
@@ -43,7 +46,7 @@ a {
 }
 
 a:hover {
-  color: #32cf93;
+  color: #603232;
   text-decoration: none;
 }
 
@@ -319,7 +322,7 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 30px 0;
-  background-color: #000;
+  
 }
 
 .header .logo {
@@ -814,7 +817,7 @@ h6 {
 .gallery-single .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.469);
   opacity: 1;
 }
 
@@ -1123,7 +1126,7 @@ h6 {
 .contact .php-email-form .error-message {
   display: none;
   color: #fff;
-  background: #df1529;
+  background: #ff021b;
   text-align: left;
   padding: 15px;
   font-weight: 600;
@@ -1220,7 +1223,7 @@ h6 {
 .hero {
   width: 100%;
   min-height: 30vh;
-  background: #000;
+  
   background-size: cover;
   position: relative;
   padding: 140px 0 60px 0;
@@ -1273,7 +1276,7 @@ h6 {
 }
 
 .hero .btn-get-started:hover {
-  background: #2cbc85;
+  background: #0b0e0c;
 }
 
 @media (max-width: 768px) {

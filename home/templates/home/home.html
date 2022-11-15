@@ -7,7 +7,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
-          <h2>We are<span>Travel Partners</span> - Help you to see the fantasies near you</h2>
+          <h2>We are<span style="background-color: rgba(255, 0, 0, 0.168);color:rgb(11, 139, 96)">Travel Partners</span> - Explore the fantasies near you</h2>
           <p>Kerala - Gods own country.</p>
           <a href="{% url 'list' %}" class="btn-get-started">Explore </a>
         </div>
@@ -27,11 +27,13 @@
             <div class="col-xl-3 col-lg-4 col-md-6">
             
             <div class="gallery-item h-100">
-
+              
               <img src="{{spot.image.url}}" class="img-fluid" alt="">
+              <center>
               <h5>{{spot.district}}</h5>
+              </center>
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="{% url 'district' spot.district %}"><i>{{spot.district}}</i></a>
+                <a href="{% url 'district' spot.district %}"> <i>{{spot.district}}</i></a>
               </div>
             </div>
             

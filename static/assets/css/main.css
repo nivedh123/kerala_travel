@@ -18,9 +18,9 @@
 
 /* Colors */
 :root {
-  --color-default: #fafafa;
-  --color-primary: #83a727;
-  --color-secondary: #223e59;
+  --color-default: #fbeded;
+  --color-primary:rgb(255, 0, 0);
+  --color-secondary: #000000;
 }
 
 /* Smooth scroll behavior */
@@ -34,7 +34,10 @@
 body {
   font-family: var(--font-default);
   color: var(--color-default);
-  background-color: #000;
+  background-image: url('/media/html/1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
 }
 
 a {
@@ -43,7 +46,7 @@ a {
 }
 
 a:hover {
-  color: #32cf93;
+  color: #ff0000;
   text-decoration: none;
 }
 
@@ -134,7 +137,7 @@ h6 {
 }
 
 .page-header .cta-btn:hover {
-  background: #229aaf;
+  background: #2cbc85;
 }
 
 /*--------------------------------------------------------------
@@ -319,7 +322,7 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 30px 0;
-  background-color: #000;
+  background-color: rgb(0, 0, 0);
 }
 
 .header .logo {
@@ -1123,7 +1126,7 @@ h6 {
 .contact .php-email-form .error-message {
   display: none;
   color: #fff;
-  background: #df1529;
+  background: #ff021b;
   text-align: left;
   padding: 15px;
   font-weight: 600;
@@ -1220,7 +1223,7 @@ h6 {
 .hero {
   width: 100%;
   min-height: 30vh;
-  background: #000;
+  
   background-size: cover;
   position: relative;
   padding: 140px 0 60px 0;

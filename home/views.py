@@ -113,7 +113,7 @@ def ListofSpot(request):
         if filled_form.is_valid():
             result=filled_form.cleaned_data['district']
             print(result)
-            note=spot.objects.filter(Q(name=result)|Q(discription__icontains=result),verify=True)
+            note=spot.objects.filter(Q(name__icontains=result)|Q(key_words__icontains=result)|Q(discription__icontains=result),verify=True)
             newfilled_form=searchFormbyDistrict
             return render(request,'home/list.html',{'notes':note,'searchdis':newfilled_form})
     notes=spot.objects.filter(verify=True)

@@ -71,9 +71,13 @@
                 <div class="stars">
                   <h3>{{spot.type.alert}}</h3>
                 </div>
-                    <a href="{%url 'delete' pk=spot.id %}" class="btn btn-danger">delete</a>
-                    <a href="{%url 'edit' pk=spot.id %}" class="btn btn-primary">edit</a>
-                  <img src="{{ spot.image.url }}" class="cta-btn" alt="">
+                <div>
+                  <a href="{%url 'delete' pk=spot.id %}" style="padding-right: 5rem;text-align-last: auto;" class="btn btn-danger">Remove</a>
+                  <a href="{%url 'edit' pk=spot.id %}" style="padding-right: 5rem;" class="btn btn-primary">Update</a>
+                  
+                </div>
+                    
+                  <img style="padding-top: 10px;" src="{{ spot.image.url }}" class="cta-btn" alt="">
                 <div class="profile mt-auto">
                     
                   <h3>{{spot.name}}</h3>
