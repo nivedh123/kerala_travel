@@ -11,8 +11,8 @@
           <div class="col-lg-6 text-center">
             <h2>{{note.name}}</h2>
             <h3 style="color:aquamarine">{{note.district}}</h3>
-            <p>
-              {{note.short_discription}}
+            <p style="font-size:large">
+              <strong>{{note.short_discription}}</strong>
             </p>
 
               <a href="{{note.link}}" style='background-color: red;color: white;' class="btn btn-get-started">Location</a>
@@ -25,7 +25,8 @@
     <section id="gallery-single" class="gallery-single">
       <div class="container">
 
-        <div class="position-relative h-100">
+        <div class="position-relative ">
+          <center>
           <div class="slides-1 portfolio-details-slider swiper">
             <div class="swiper-wrapper align-items-center">
 
@@ -45,6 +46,7 @@
             </div>
             <div class="swiper-pagination"></div>
           </div>
+        </center>
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
 
@@ -85,11 +87,16 @@
               {%endfor%}
               
             </div>{%if request.user.is_authenticated %}
+            <div>
+              
             <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
                 {{addingreview}}
                 <input type="submit" class="btn cta-btn" value="POST">
             </form>
+          
+          </div>
             {%endif%}
+
           </div>
 
           <div class="col-lg-3">

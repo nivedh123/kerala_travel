@@ -9,6 +9,7 @@ from django.core.files import File
 #image compression method
 def compress(image):
     im = Image.open(image)
+    im = im.convert('RGB')
     im = im.resize((1920 ,1440), Image.ANTIALIAS)
     im_io = BytesIO() 
     im.save(im_io, 'JPEG', quality=60) 
@@ -16,6 +17,7 @@ def compress(image):
     return new_image
 def Compress(image):
     im = Image.open(image)
+    im = im.convert('RGB')
     im = im.resize((400,400), Image.ANTIALIAS)
     im_io = BytesIO() 
     im.save(im_io, 'JPEG', quality=60) 

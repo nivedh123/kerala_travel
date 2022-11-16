@@ -4,7 +4,12 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
+.animated {
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  transition: height 0.2s;
+  
+}
 /*--------------------------------------------------------------
 # Set main reusable colors and fonts using CSS variables
 # Learn more about CSS variables at https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
@@ -811,7 +816,7 @@ h6 {
 # Gallery Single Section
 --------------------------------------------------------------*/
 .gallery-single .portfolio-details-slider img {
-  width: 100%;
+  width: 70%;
 }
 
 .gallery-single .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {

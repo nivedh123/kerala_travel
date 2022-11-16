@@ -40,10 +40,12 @@ class reviewForm(forms.ModelForm):
     class Meta:
         model=reviewmodel
         fields=['content','rating','status']
-        labels={'content':'write here','status':'did you visited the spot'}
-        widgets={'content':forms.TextInput(attrs={'class':'form-control'}),
-                'rating':forms.RadioSelect(attrs={'class':'radio-inline'}),
-                'status':forms.RadioSelect(attrs={'class':'radio-inline'})}
+        labels={'status':'status',
+                'rating':'rate',
+                'content':''}
+        widgets={'content':forms.Textarea(attrs={'class':"form-control animated",'style':'color :black;','cols':"50",'placeholder':'Enter your review here...', 'rows':'5'}),
+                'rating':forms.Select(),
+                'status':forms.Select()}
 class spotform(forms.ModelForm):
     class Meta:
         model=spot
