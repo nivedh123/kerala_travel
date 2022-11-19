@@ -10,7 +10,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>{{note.name}}</h2>
-            <h3 style="color:aquamarine">{{note.district}}</h3>
+            <h3 style="color:rgb(85, 110, 108)">{{note.district}}</h3>
             <p style="font-size:large">
               <strong>{{note.short_discription}}</strong>
             </p>
@@ -33,15 +33,16 @@
               <div class="swiper-slide">
                 <img src="{{ note.image.url }}" alt="">
               </div>
-              
+              {% if note.image2 %}
               <div class="swiper-slide">
                 <img src="{{ note.image2.url }}" alt="">
               </div>
-              
+              {%endif%}
+              {% if note.image3 %}
               <div class="swiper-slide">
                 <img src="{{ note.image3.url }}" alt="">
               </div>
-              
+              {%endif%}
 
             </div>
             <div class="swiper-pagination"></div>
@@ -91,7 +92,7 @@
               
             <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
                 {{addingreview}}
-                <input type="submit" class="btn cta-btn" value="POST">
+                <input type="submit"class="btn-visit align-self-start" value="POST">
             </form>
           
           </div>

@@ -100,7 +100,8 @@ def ListofSpotuser(request):
     return render(request,'home/listuser.html',{'profile':profile,'notes':spots})
 
 #-------------------------------------------------------
-
+class Aboutview(TemplateView):
+    template_name='home/about.html'
 
 
 
@@ -144,7 +145,7 @@ def DetailofSpot(request,pk):
     except:
          return render(request,'home/detail.html',{'note':details,'addingreview':addreview})
         
-
+    
 
 
 

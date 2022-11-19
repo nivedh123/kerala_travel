@@ -78,8 +78,6 @@ class spot(models.Model):
     key_words=models.TextField(help_text='keyword must start with %,keywords give your contribution more expo!')
     date=models.DateTimeField(auto_now_add=True)
     verify=models.BooleanField(default=False)
-    
-
     #rating=models.FloatField(default=5)
     def save(self, *args, **kwargs):
         self.name=self.name.upper()
@@ -102,7 +100,7 @@ class spot(models.Model):
 
 class reviewmodel(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
-    content=models.TextField()
+    content=models.TextField(blank=True,null=True)
     status=models.CharField(max_length=12,choices=(('visited','visited'),('Not visited','Not visited')))
     rating=models.CharField(max_length=14,choices=(('Below average','Below average'),('Average', 'Average'),('Recomandable', 'Recomandable'),('Good','Good'),('fentastic','fentastic')),blank=True,null=True)
     date=models.DateTimeField(auto_now_add=True)
