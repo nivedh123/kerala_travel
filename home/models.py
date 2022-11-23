@@ -79,6 +79,8 @@ class spot(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     verify=models.BooleanField(default=False)
     #rating=models.FloatField(default=5)
+    class Meta:
+        ordering=['district']
     def save(self, *args, **kwargs):
         self.name=self.name.upper()
         new_image = compress(self.image)

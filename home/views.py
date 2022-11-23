@@ -48,11 +48,15 @@ class DeleteTemp(LoginRequiredMixin,DeleteView):
     login_url='/spots/'
     success_url='/spotsuser/'
     template_name='home/delete.html'
+    def get(self, request, *args, **kwargs):
+        self.object = spot.objects.get(pk=kwargs.get('pk'),user=request.user)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 #-------------------------------------------------------
 def home(request):
     remarks=remark.objects.all()
     district_ten = districts.objects.all()
-    return render(request,'home/home.html',{'district':district_ten,'remarks':remarks})
+    return render(request,'home/tourist-places-in-kerala.html',{'district':district_ten,'remarks':remarks})
 #-------------------------------------------------------
 
 
@@ -116,9 +120,10 @@ def ListofSpot(request):
             print(result)
             note=spot.objects.filter(Q(name__icontains=result)|Q(key_words__icontains=result)|Q(discription__icontains=result),verify=True)
             newfilled_form=searchFormbyDistrict
-            return render(request,'home/list.html',{'notes':note,'searchdis':newfilled_form})
+            return render(request,'home/list.html',{'notes':note,'value':result,'searchdis':newfilled_form})
     notes=spot.objects.filter(verify=True)
-    return render(request,'home/list.html',{'notes':notes,'searchdis':serchdistrict})
+    passn='kerala'
+    return render(request,'home/list.html',{'notes':notes,'value':passn,'searchdis':serchdistrict})
 #-------------------------------------------------------
 def deleteReview(request,pk,pk1):
     reviewmodel.objects.get(pk=pk).delete()
@@ -176,9 +181,9 @@ def districtView(request,value):
         if filled_form.is_valid():   
             result=filled_form.cleaned_data['district']
             note=spot.objects.filter(name=result,verify=True)
-            return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
+            return render(request,'home/list.html',{'notes':note,'value':result,'searchdis':serchdistrict})
     district=spot.objects.filter(district__district=value,verify=True)
-    return render(request,'home/list.html',{'notes':district,'searchdis':serchdistrict})
+    return render(request,'home/list.html',{'notes':district,'value':value,'searchdis':serchdistrict})
 #-------------------------------------------------------
 def remarkView(request,value):
     serchdistrict=searchFormbyDistrict
@@ -187,9 +192,9 @@ def remarkView(request,value):
         if filled_form.is_valid():   
             result=filled_form.cleaned_data['district']
             note=spot.objects.filter(name=result,verify=True)
-            return render(request,'home/list.html',{'notes':note,'searchdis':serchdistrict})
+            return render(request,'home/list.html',{'notes':note,'value':result,'searchdis':serchdistrict})
     remark=spot.objects.filter(type__alert=value,verify=True)
-    return render(request,'home/list.html',{'notes':remark,'searchdis':serchdistrict})
+    return render(request,'home/list.html',{'notes':remark,'value':value,'searchdis':serchdistrict})
 
 class Tempv(TemplateView):
     template_name='home/about.html'

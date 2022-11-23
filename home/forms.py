@@ -50,9 +50,10 @@ class spotform(forms.ModelForm):
     class Meta:
         model=spot
         fields=['image','image2','image3','name','short_discription','discription','key_words','rel_link','link','district','type','warning']
-        labels={'name':'Name of spot','short_discription':'discription title','discription':'discription',
+        labels={'image2':'image (optional)','image3':'image (optional)','name':'Name of spot','short_discription':'discription title','discription':'discription',
                 'key_words':'key words','rel_link':'referance','link':'location url'}
-        widgets={'name':forms.TextInput(attrs={'class':'form-control'}),
+        widgets={
+                'name':forms.TextInput(attrs={'class':'form-control'}),
                 'short_discription':forms.TextInput(attrs={'class':'form-control'}),
                 'discription':Textarea(attrs={'class':'form-control','cols': 60, 'rows': 3}),
                 'key_words':Textarea(attrs={'class':'form-control','cols': 60, 'rows': 3}),

@@ -38,10 +38,10 @@ INSTALLED_APPS = [
      #custom
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.postgres',
+    
      #-------
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
     'home',
     'resetapp',
     
@@ -119,12 +119,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_TZ = True
-
+# mysite/settings.py
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

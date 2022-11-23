@@ -1,7 +1,12 @@
-
-
-
 {%extends 'base.html'%}
+
+{%block title %}
+{{value}}-travel-partners|best-of-{{value}}|best-place-to-visit-in-{{value}}|tourist-places-in-{{value}}|best-tourist-places-in-{{value}}
+{%endblock%}
+{%block meta %}
+{{value}}-travel-partners|best-of-{{value}}|best-place-to-visit-in-{{value}}|tourist-places-in-{{value}}|best-tourist-places-in-{{value}}|places-to-visit-near-me|places-to-visit-in-{{value}}
+{%endblock%}
+
 {%block content%}
 {% if searchdis %}
 <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">

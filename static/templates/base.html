@@ -1,14 +1,15 @@
 {% load i18n %} 
+
 {%load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Travelling</title>
-  <meta content="" name="description">
+  <title>{%block title %}{%endblock%} Travelling</title>
+  <meta content="{%block meta %}{%endblock%}" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
@@ -38,7 +39,7 @@
   ======================================================== -->
 </head>
 <body >
-
+  
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center fixed-top">
       <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -46,43 +47,30 @@
         <a href="{%url 'home' %}" class="logo d-flex align-items-center  me-auto me-lg-0">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
-          <i class="bi bi-camera"></i>
-          <h1>Travelling</h1>
+          <i class="bi bi-geo-alt-fill"></i>
+          <h1>Travel Partners</h1>
         </a>
   
         <nav id="navbar" class="navbar">
           <ul>
             <li><a href="{%url 'home'%}" class="active">Home</a></li>
             <li><a href="{%url 'list'%}" class="active">Spots</a></li>
-            <li><a href="{%url 'about'%}">About</a></li>
             
-            <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a href="">Nature</a></li>
-                <li><a href="">People</a></li>
-                <li><a href="">Architecture</a></li>
-                <li><a href="">Animals</a></li>
-                <li><a href="">Sports</a></li>
-                <li><a href="">Travel</a></li>
-                <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                  <ul>
-                    <li><a href="#">Sub Menu 1</a></li>
-                    <li><a href="#">Sub Menu 2</a></li>
-                    <li><a href="#">Sub Menu 3</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+            
             {%if request.user.is_authenticated %}
-            <li><a href="{% url 'listuser'%}">My profile</a></li>
-            <li><a href="{% url 'logout'%}">Logout</a></li>
             <li><a href="{%url 'create'%}" class="active">Contribute</a></li>
-            <li><a href="">Contact</a></li>
+            <li><a href="{% url 'listuser'%}" class="active">My profile</a></li>
+            <li><a href="{% url 'logout'%}" class="active">Logout</a></li>
             {%else%}
             <li><a href="{%url 'login'%}" class="active">Login</a></li>
             <li><a href="{%url 'signup'%}" class="active">Signup</a></li>
             {%endif%}
-
+            <li class="dropdown"><a href="#" class="active"><span>More</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul>
+                <li><a href="{%url 'about'%}" class="active">About</a></li>
+                <li><a href="" class="active">career</a></li>
+              </ul>
+            </li>
           </ul>
         </nav><!-- .navbar -->
   
@@ -97,6 +85,9 @@
   
       </div>
     </header><!-- End Header -->
+
+       
+
 {%block content%}
 
 
@@ -107,6 +98,11 @@
 <footer id="footer" class="footer">
     <div class="container">
       <div class="copyright">
+        <form action="/i18n/setlang/" method="post">
+          <input type="hidden" name="csrfmiddlewaretoken" value="UitptatAqu4Z8LmaRncWSKdhkCBRG98ujvhWEdxUOPJM8Fe2giv3jCaYdtJMHAkZ">
+          <input name="next" type="hidden" value="">
+      </form>
+      
         &copy; Copyright <strong><span>Travel Partners</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
