@@ -1,0 +1,141 @@
+
+{%extends 'base.html'%}
+{%block title %}
+{{note.title}}|best-of-{{note.place}}|best-place-to-visit-in-{{note.place}}|tourist-places-in-{{note.place}}|best-tourist-places-in-{{note.place}}
+{%endblock%}
+{%block meta %}
+{{note.place}}-travel-partners|best-of-{{note.place}}|best-place-to-visit-in-{{note.place}}|tourist-places-in-{{note.place}}|best-tourist-places-in-{{note.place}}|places-to-visit-near-me|places-to-visit-in-{{note.place}}
+{%endblock%}
+{%block content%}
+
+<main id="main" data-aos="fade" data-aos-delay="1500">
+
+    <!-- ======= End Page Header ======= -->
+    <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class=" text-center">
+            <h2>{{note.title}}</h2>
+            <h3 style="color:rgb(141, 218, 211)"><i class="bi bi-geo"></i>{{note.place}}</h3>
+            <p style="font-size:large">
+              <strong><i class="bi bi-car-front-fill"></i>&nbsp; {{note.date_travel}}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Page Header -->
+
+    <!-- ======= Gallery Single Section ======= -->
+    <section id="gallery-single" class="gallery-single">
+      <div class="container">
+
+        <div class="position-relative ">
+          <center>
+          <div class="slides-1 portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+
+              <div class="swiper-slide">
+                <img src="{{ note.image1.url }}" alt="">
+              </div>
+              {% if note.image2 %}
+              <div class="swiper-slide">
+                <img src="{{ note.image2.url }}" alt="">
+              </div>
+              {%endif%}
+              
+
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </center>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+        </div>
+
+        <div style="background-color:rgba(0, 0, 0, 0.595)" class="row justify-content-between gy-4 mt-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-description">
+              <h2>{{note.title}}</h2>
+              
+              <p>
+                {{note.content|safe}}
+              </p>
+              <div style="color:red;">
+              <p>{{note.warning|safe}}</p>
+              </div>
+              <br>
+              {% for rating in ratings %}
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  {{rating.content}}
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div>
+                  <img src="{{rating.user.profilemodel.Image.url}}" class="testimonial-img" alt="">
+                  <h4>{{rating.user.profilemodel.Name}}</h4>
+                  <h5>{{rating.date}}</h5>
+                  {% if rating.user == request.user %}
+                 <h6> <a href="{%url 'rdeleteblog' pk=rating.id pk1=note.id %}"><i class="bi bi-trash3"></i></a></h6>
+                  {% endif %}
+                </div>
+              </div>
+              {%endfor%}
+              
+            </div>
+            <div class="container p-4">
+              <div class="pagination justify-content-center">
+                  <span class="step-links">
+                    {% if ratings.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ ratings.previous_page_number }}">previous</a>
+                    {% endif %}
+        
+                      <span class="current">
+                          Page {{ ratings.number }} of {{ ratings.paginator.num_pages }}
+                      </span>
+        
+                    {% if ratings.has_next %}
+                        <a href="?page={{ ratings.next_page_number }}">next</a>
+                        <a href="?page={{ ratings.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                  </span>
+                  </div>
+              </div>
+            <div style="background-color: rgba(0, 0, 0, 0.617);">
+              
+            <form action="{% url 'blog' pk=note.id %}"  method="post">{%csrf_token%}
+                {{addingreview}}
+                <input type="submit" style='background-color: rgb(80, 38, 38);color: white;' class="btn btn-get-started" value="POST">
+            </form>
+          
+          </div>
+           
+
+          </div>
+
+          <div class="col-lg-3">
+            <div class="portfolio-info">
+              <h3>Contributer information</h3>
+              <ul>
+                <a href="{% url 'profile' pk=note.user.profilemodel.id%}">
+                <li><img src="{{note.user.profilemodel.Image.url}}" class="testimonial-img" alt=""></li>
+                <li><strong>Contributer</strong> <span>{{note.user.profilemodel.Name}}</span></li>
+                <li><strong>Bio</strong> <span>{{note.user.profilemodel.Name|truncatechars:10}}</span></li>
+                <li><strong>Publish time</strong> <span>{{note.date}}</span></li>
+            </a>
+                
+                <li><a href="{{note.user.profilemodel.link}}" class="btn-visit align-self-start">Connect<i class="bi bi-person"></i></a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Gallery Single Section -->
+
+  </main><!-- End #main -->
+  {%endblock%}

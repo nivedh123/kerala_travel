@@ -10,7 +10,20 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>{{profile.Name}}</h2>
-            <a href="{{profile.link}}" class="cta-btn" >Connect</a>
+            <a href="{{profile.link}}" class="cta-btn"  >Connect</a>
+            <br><br>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <input type="text" style='background-color:  rgb(80, 38, 38);color:white;' value='{{ request.META.HTTP_HOST }}/profile/{{url}}/enable' id="myInput">
+<button onclick="copyToClipboard('myInput')" style='background-color: rgb(124, 0, 0);color: white;' class="btn btn-get-started"><i class="bi bi-clipboard"></i>Copy</button>
+<script>
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+</script>
           </div>
         </div>
       </div>
@@ -26,27 +39,28 @@
           </div>
           <div class="col-lg-5 content">
             <h2>{{profile.Bio_head}}</h2>
+            
             <p class="fst-italic py-3">
               {{profile.Bio}}
             </p>
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Date joining:</strong> <span>{{profile.Date}}</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>place:</strong> <span>www.example.com</span></li>
+                  
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>{{profile.user.email}}</span></li>
                   
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Connect:</strong> <span>{{profile.link}}</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>Master@gmail.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Social media:</strong> <span>{{profile.link}}</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Date joining:</strong> <span>{{profile.Date}}</span></li>
                 </ul>
               </div>
             </div>
             <p class="py-3">
-                <a href="{% url 'profileedit'  pk=profile.id%}" class="btn btn-primary" >edit</a>&nbsp;&nbsp;&nbsp;
-                <a href="{% url 'reset_password'%}" class="btn btn-success">change password</a>
+                <a href="{% url 'profileedit'  pk=profile.id%}" class="btn btn-primary" ><i class="bi bi-pencil-square"></i>edit</a>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'reset_password'%}" class="btn btn-success"><i class="bi bi-arrow-bar-right"></i>change password</a>
             </p>
           </div>
         </div>
@@ -60,7 +74,7 @@
 
         <div class="section-header">
           <h2>My contributions..</h2>
-          <p>Edit my work here...</p>
+          <h4>Do the proper updates to your contributions to make it alive in future ...</h4>
         </div>
 
         <div class="slides-3 swiper">
@@ -72,22 +86,22 @@
                   <h3>{{spot.type.alert}}</h3>
                 </div>
                 <div>
-                  <a href="{%url 'delete' pk=spot.id %}" style="padding-right: 5rem;text-align-last: auto;" class="btn btn-danger"><center>Remove</center></a>
+                  <a href="{%url 'delete' pk=spot.id %}" style="padding-right: 5rem;text-align-last: auto;" class="btn btn-danger">Remove</a>
                   <a href="{%url 'edit' pk=spot.id %}" style="padding-right: 5rem;" class="btn btn-primary">Update</a>
                   
                 </div>
                     
                   <img style="padding-top: 10px;" src="{{ spot.image.url }}" class="cta-btn" alt="">
                 <div class="profile mt-auto">
-                    
+                  <a href="{%url 'detail' pk=spot.id %}">
                   <h3>{{spot.name}}</h3>
                   <h4>{{spot.date}}</h4>
-
+                  </a>
                 </div>
               </div>
             </div><!-- End testimonial item -->
             {%endfor%}
-           <!-- End testimonial item -->
+           
 
           </div>
           <div class="swiper-pagination"></div>
@@ -95,6 +109,45 @@
 
       </div>
     </section><!-- End Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
 
+        <div class="section-header">
+          <h2>My blogs..</h2>
+          
+        </div>
+
+        <div class="slides-3 swiper">
+          <div class="swiper-wrapper">
+            {%for spot in blog %}
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h3>{{spot.place}}</h3>'deleteblog'
+                </div>
+                <div>
+                  <a href="{%url 'deleteblog' pk=spot.id %}" style="padding-right: 5rem;text-align-last: auto;" class="btn btn-danger">Remove</a>
+                  <a href="{%url 'editblog' pk=spot.id %}" style="padding-right: 5rem;" class="btn btn-primary">Update</a>
+                  
+                </div>
+                    
+                  <img style="padding-top: 10px;" src="{{ spot.image1.url }}" class="cta-btn" alt="">
+                <div class="profile mt-auto">
+                  <a href="{%url 'blog' pk=spot.id %}">
+                  <h3>{{spot.title}}</h3>
+                  <h4>{{spot.date}}</h4>
+                  </a>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            {%endfor%}
+           
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
   </main><!-- End #main -->
   {%endblock%}

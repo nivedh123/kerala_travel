@@ -14,14 +14,14 @@
     <div class="page-header d-flex align-items-center">
       <div class="container position-relative">
         <div class="row d-flex justify-content-center">
-          <div class="col-lg-6 text-center">
+          <div class=" text-center">
             <h2>{{note.name}}</h2>
-            <h3 style="color:rgb(85, 110, 108)">{{note.district}}</h3>
+            <h3 style="color:rgb(141, 218, 211)">{{note.district}}</h3>
             <p style="font-size:large">
               <strong>{{note.short_discription}}</strong>
             </p>
 
-              <a href="{{note.link}}" style='background-color: red;color: white;' class="btn btn-get-started">Location</a>
+              <a href="{{note.link}}" style='background-color: rgb(158, 9, 9);color: white;' class="btn btn-get-started"><i class="bi bi-pin-map"></i>Location</a>
           </div>
         </div>
       </div>
@@ -38,15 +38,24 @@
 
               <div class="swiper-slide">
                 <img src="{{ note.image.url }}" alt="">
+                {% if note.ref_img %}
+                <div class="bottom-left">{{note.ref_img|safe}}</div>
+                {%endif%}
               </div>
               {% if note.image2 %}
               <div class="swiper-slide">
                 <img src="{{ note.image2.url }}" alt="">
+                {% if note.ref_img2 %}
+                <div class="bottom-left">{{note.ref_img2|safe}}</div>
+                {%endif%}
               </div>
               {%endif%}
               {% if note.image3 %}
               <div class="swiper-slide">
                 <img src="{{ note.image3.url }}" alt="">
+                {% if note.ref_img3 %}
+                <div class="bottom-left">{{note.ref_img3|safe}}</div>
+                {%endif%}
               </div>
               {%endif%}
 
@@ -66,14 +75,41 @@
               <h2>{{note.name}}</h2>
               
               <p>
-                {{note.discription|safe}}
+                {{note.discription|linebreaks}}
               </p>
               <div style="color:red;">
-              <p>{{note.warning|safe}}</p>
+              <p><i class="bi bi-exclamation-circle"></i>&nbsp;{{note.warning|safe}}</p>
               </div>
               <div style="color:grey;">
                 <p>{{note.key_words|safe}}</p>
+                <a href="{{note.rel_link}}" style='background-color: rgb(124, 0, 0);color: white;' class="btn btn-get-started">More<i class="bi bi-link"></i></a>
               </div>
+              <br>
+               <div>
+                <div style="background-color: rgba(0, 0, 0, 0);" class="progress">
+                  <h6 style="color:gold">5&nbsp<i style="color:gold" class="bi bi-star-fill"></i>&nbsp</h6><div class="progress-bar bg-warning" style="width:{{percentage.4}}%">{{percentage.4}}%</div>
+                </div>
+                <br>
+                <div style="background-color: rgba(0, 0, 0, 0);" class="progress">
+                  <h6 style="color:gold">4&nbsp<i style="color:gold" class="bi bi-star-fill"></i>&nbsp</h6><div class="progress-bar bg-warning" style="width:{{percentage.3}}%">{{percentage.3}}%</div>
+                </div>
+                <br>
+                <div style="background-color: rgba(0, 0, 0, 0);" class="progress">
+                  <h6 style="color:gold">3&nbsp<i style="color:gold" class="bi bi-star-fill"></i>&nbsp</h6><div class="progress-bar bg-warning" style="width:{{percentage.2}}%">{{percentage.2}}%</div>
+                </div>
+                <br>
+                <div style="background-color: rgba(0, 0, 0, 0);" class="progress">
+                  <h6 style="color:gold">2&nbsp<i style="color:gold" class="bi bi-star-fill"></i>&nbsp</h6><div class="progress-bar bg-warning" style="width:{{percentage.1}}%">{{percentage.1}}%</div>
+                </div>
+                <br>
+                <div style="background-color: rgba(0, 0, 0, 0);" class="progress">
+                  <h6 style="color:gold">1&nbsp<i style="color:gold" class="bi bi-star-fill"></i>&nbsp</h6><div class="progress-bar bg-warning" style="width:{{percentage.0}}%">{{percentage.0}}%</div>
+                </div>
+                <br>
+                <h6 style="color: rgba(119, 106, 106, 0.709);">total({{percentage.5}})</h6>
+                <br>
+
+               </div>
               {% for rating in ratings %}
               <div class="testimonial-item">
                 <p>
@@ -87,22 +123,41 @@
                   <h4>{{rating.user.profilemodel.Name}}</h4>
                   <h5>{{rating.date}}</h5>
                   {% if rating.user == request.user %}
-                 <h6> <a href="{%url 'rdelete' pk=rating.id pk1=note.id %}">Remove</a></h6>
+                 <h6> <a href="{%url 'rdelete' pk=rating.id pk1=note.id %}"><i class="bi bi-trash3"></i></a></h6>
                   {% endif %}
                 </div>
               </div>
               {%endfor%}
               
-            </div>{%if request.user.is_authenticated %}
-            <div>
+            </div>
+            <div class="container p-4">
+              <div class="pagination justify-content-center">
+                  <span class="step-links">
+                    {% if ratings.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ ratings.previous_page_number }}">previous</a>
+                    {% endif %}
+        
+                      <span class="current">
+                          Page {{ ratings.number }} of {{ ratings.paginator.num_pages }}
+                      </span>
+        
+                    {% if ratings.has_next %}
+                        <a href="?page={{ ratings.next_page_number }}">next</a>
+                        <a href="?page={{ ratings.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                  </span>
+                  </div>
+              </div>
+            <div style="background-color: rgba(0, 0, 0, 0.617);">
               
             <form action="{% url 'detail' pk=note.id %}"  method="post">{%csrf_token%}
                 {{addingreview}}
-                <input type="submit"class="btn-visit align-self-start" value="POST">
+                <input type="submit" style='background-color: rgb(80, 38, 38);color: white;' class="btn btn-get-started" value="POST">
             </form>
           
           </div>
-            {%endif%}
+           
 
           </div>
 
@@ -117,7 +172,7 @@
                 <li><strong>Publish time</strong> <span>{{note.date}}</span></li>
             </a>
                 
-                <li><a href="{{note.link}}" class="btn-visit align-self-start">instagram</a></li>
+                <li><a href="{{note.user.profilemodel.link}}" class="btn-visit align-self-start">Connect<i class="bi bi-person"></i></a></li>
               </ul>
             </div>
           </div>

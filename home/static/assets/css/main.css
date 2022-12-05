@@ -2,13 +2,46 @@
 * Template Name: PhotoFolio - v1.1.1
 * Template URL: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/
 * Author: BootstrapMade.com
+
 * License: https://bootstrapmade.com/license/
 */
+
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}
 .animated {
   -webkit-transition: height 0.2s;
   -moz-transition: height 0.2s;
   transition: height 0.2s;
   
+}
+
+
+.bottom-left {
+  position: center;
+  bottom: 8px;
+  left: 16px;
+  color: #999;
 }
 /*--------------------------------------------------------------
 # Set main reusable colors and fonts using CSS variables
@@ -23,9 +56,9 @@
 
 /* Colors */
 :root {
-  --color-default: #fbeded;
+  --color-default: #e3e3e3;
   --color-primary:rgb(177, 0, 0);
-  --color-secondary: #00000075;
+  --color-secondary: #0000007c;
 }
 
 /* Smooth scroll behavior */
@@ -326,8 +359,8 @@ h6 {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  padding: 30px 0;
-  
+  /*padding: 30px 0;*/
+  background-color: rgba(0, 0, 0, 0.39);
 }
 
 .header .logo {
@@ -417,7 +450,7 @@ h6 {
     letter-spacing: 1px;
     font-size: 13px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.97);
     white-space: nowrap;
     transition: 0.3s;
   }
@@ -816,7 +849,7 @@ h6 {
 # Gallery Single Section
 --------------------------------------------------------------*/
 .gallery-single .portfolio-details-slider img {
-  width: 70%;
+  width: 90%;
 }
 
 .gallery-single .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {

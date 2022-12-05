@@ -11,7 +11,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>{{profile.Name}}</h2>
-            <a href="{{profile.link}}" class="btn-get-started" >Connect</a>
+            <a href="{{profile.link}}" style='background-color: rgb(171, 3, 3);color: white;' class="btn btn-get-started" >Connect</a>
           </div>
         </div>
       </div>
@@ -28,21 +28,21 @@
           <div class="col-lg-5 content">
             <h2>{{profile.Bio_head}}</h2>
             <p class="fst-italic py-3">
-              {{profile.Bio}}
+              {{profile.Bio|linebreaks}}
             </p>
             <div class="row">
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Date joining:</strong> <span>{{profile.Date}}</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>place:</strong> <span>www.example.com</span></li>
+                  
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>{{profile.user.email}}</span></li>
                   
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Connect:</strong> <span>{{profile.link}}</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>Master@gmail.com</span></li>
-                  
+                  <li><i class="bi bi-chevron-right"></i> <strong>Social media:</strong> <span>{{profile.link}}</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Date joining:</strong> <span>{{profile.Date}}</span></li>
+                </ul>
               </div>
             </div>
             

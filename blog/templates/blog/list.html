@@ -1,0 +1,80 @@
+{%extends 'base.html'%}
+
+{%block title %}
+{{value}}-travel-partners|best-of-{{value}}|best-place-to-visit-in-{{value}}|tourist-places-in-{{value}}|best-tourist-places-in-{{value}}
+{%endblock%}
+{%block meta %}
+{{value}}-travel-partners|best-of-{{value}}|best-place-to-visit-in-{{value}}|tourist-places-in-{{value}}|best-tourist-places-in-{{value}}|places-to-visit-near-me|places-to-visit-in-{{value}}
+{%endblock%}
+
+{%block content%}
+{% if searchdis %}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+
+<center>
+  <p style="font-family: fantasy;">
+    In Kerala, the state is known for its beautiful beaches, lakes and mountains. The tourism industry in Kerala is one of the most promising sectors in the country. There are many things to do in Kerala and you can enjoy a vacation here with your family, friends or alone.</p>
+<form href="{%url 'listblog' %}" class="form-inline" method='post'>{%csrf_token%}
+
+    {{searchdis}}
+  
+    <input type="submit" style="background-color:red" class="btn" value="GO">
+
+</form>
+</center>
+</div>
+</div>
+</div>
+</section><!-- End Hero Section -->
+{%endif%}
+<main id="main" data-aos="fade" data-aos-delay="1500">
+<h1>{{notes.count}}</h1>
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      
+      <div class="container-fluid">
+       
+        <div class="row gy-4 justify-content-center">
+          {%for spot in notes %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+              
+            <div class="gallery-item h-100">
+
+                <img src="{{ spot.image1.url }}" class="img-fluid" alt="">
+              <h5>{{spot.title}}</h5>
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="{%url 'blog' pk=spot.id %}" style="font-size: 50px;"><i class="bi bi-mouse2-fill"></i></a>
+              </div>
+            </div>  
+                     
+          </div><!-- End Gallery Item -->
+          {%endfor%} 
+        </div>
+        
+      </div>
+      
+    </section><!-- End Gallery Section -->
+    <div class="container p-4">
+      <div class="pagination justify-content-center">
+          <span class="step-links">
+            {% if notes.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ notes.previous_page_number }}">previous</a>
+            {% endif %}
+
+              <span class="current">
+                  Page {{ notes.number }} of {{ notes.paginator.num_pages }}
+              </span>
+
+            {% if notes.has_next %}
+                <a href="?page={{ notes.next_page_number }}">next</a>
+                <a href="?page={{ notes.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+          </span>
+          </div>
+      </div>
+  </main><!-- End #main -->
+  {%endblock%}

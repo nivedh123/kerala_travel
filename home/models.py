@@ -5,7 +5,7 @@ from django.db import models
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
-
+from ckeditor_uploader.fields import RichTextUploadingField 
 #image compression method
 def compress(image):
     im = Image.open(image)
@@ -60,22 +60,36 @@ class profilemodel(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return str(self.user)
+class cluster(models.Model):
+    name=models.CharField(max_length=20)
+    image=models.ImageField(blank=True,null=True)
+    publish=models.BooleanField(default=False)
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.name
 
 class spot(models.Model):
     id = models.AutoField(primary_key=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='spot')
     image=models.ImageField()
+    ref_img=models.CharField(max_length=1000,blank=True,null=True)
     image2=models.ImageField(blank=True,null=True)
+    ref_img2=models.CharField(max_length=1000,blank=True,null=True)
     image3=models.ImageField(blank=True,null=True)
-    name=models.CharField(max_length=20)
-    short_discription=models.CharField(max_length=50,help_text='short description place in 50 words')
+    ref_img3=models.CharField(max_length=1000,blank=True,null=True)
+    name=models.CharField(max_length=20,unique=True)
+    short_discription=models.CharField(max_length=50,help_text='short title of your description',blank=True,null=True)
     discription=models.TextField()
-    rel_link=models.URLField(help_text='you can add related articles link about place here',default='https://www.google.com/search?q=kerala&rlz=1C5CHFA_enIN988IN988&oq=ker&aqs=chrome.0.35i39j46i433i512j69i57j69i60l5.1347j0j7&sourceid=chrome&ie=UTF-8')
+    rel_link=models.URLField(help_text='you can add related articles link about place here',blank=True,null=True)
     link=models.URLField()
     district=models.ForeignKey(districts,on_delete=models.CASCADE)
     type=models.ForeignKey(remark,on_delete=models.CASCADE)
-    warning=models.TextField(help_text='give any special advise or any special local warning here')
-    key_words=models.TextField(help_text='keyword must start with %,keywords give your contribution more expo!')
+    warning=models.TextField(help_text='If you have any special advice for travellers give it here.',blank=True,null=True)
+    key_words=models.TextField(help_text='Keywords are used to make your contribution more exposure in the search')
+    cluster=models.ForeignKey(cluster,blank=True,null=True,on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now_add=True)
     verify=models.BooleanField(default=False)
     #rating=models.FloatField(default=5)
@@ -103,10 +117,12 @@ class spot(models.Model):
 class reviewmodel(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='reviewmodel')
     content=models.TextField(blank=True,null=True)
-    status=models.CharField(max_length=12,choices=(('visited','visited'),('Not visited','Not visited')))
-    rating=models.CharField(max_length=14,choices=(('Below average','Below average'),('Average', 'Average'),('Recomandable', 'Recomandable'),('Good','Good'),('fentastic','fentastic')),blank=True,null=True)
+    status=models.CharField(max_length=12,default='visited',choices=(('visited','visited'),('Not visited','Not visited')))
+    rating=models.CharField(max_length=14,default='fentastic',choices=(('Below average','*'),('Average', '* *'),('Recomandable', '* * *'),('Good','* * * *'),('fentastic','* * * * *')))
     date=models.DateTimeField(auto_now_add=True)
     spot=models.ForeignKey(spot,on_delete=models.CASCADE,related_name='reviewmodel')
+
+
     def __str__(self):
         return str(self.spot)
     

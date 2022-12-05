@@ -1,21 +1,40 @@
 {%extends 'base.html'%}
 {%block content%}
-<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
-    <div class="container">
-      <div class="row justify-content-center">
-            <center>
-                
-<form method="POST">{%csrf_token%}
-    {{form.as_p}}
-<input type="submit" value="LOGIN" class="btn btn-success">
-</form>
-<div>
-<a href="{% url 'reset_password'%}" >forget password?   </a>&nbsp;&nbsp;&nbsp;
-<a href="{%url 'signup' %}">register</a>
-</div>
-</center>
-</div>
-</div>
-</div>
-</section>
+
+<section class="h-100 gradient-form" >
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-6" >
+                <div class="card-body p-md-5 mx-md-4" >
+  
+                  <div class="text-center">
+                    <img src="/media/html/login.jpg"
+                      style="width: 185px;" alt="logo">
+                    <!--<h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>-->
+                  </div>
+  <center>
+                  <form method="POST">{%csrf_token%}
+                    {{form.as_p}}
+                <input type="submit" value="LOGIN" style='background-color: rgb(171, 3, 3);color: white;' class="btn btn-success">
+                </form>
+                <a href="{% url 'reset_password'%}" >forget password?   </a>&nbsp;&nbsp;&nbsp;
+                <a href="{%url 'signup' %}">Become a contributer</a>
+            </center>
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4">Kerala Travel Partners</h4>
+                  <p class="small mb-0">Kerala is a small state in southern India. It's nicknamed "God's Own Country" and is known for its lush green landscape and rich culture. The tourist industry here is growing rapidly, with a lot of travel companies opening up all over the place.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {%endblock%}

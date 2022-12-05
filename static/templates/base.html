@@ -8,7 +8,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{%block title %}{%endblock%} Travelling</title>
+  <title>kerala travel partners :{%block title %}{%endblock%}</title>
+  
   <meta content="{%block meta %}{%endblock%}" name="description">
   <meta content="" name="keywords">
 
@@ -38,7 +39,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<body >
+<body>
   
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center fixed-top">
@@ -48,29 +49,32 @@
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
           <i class="bi bi-geo-alt-fill"></i>
-          <h1>Travel Partners</h1>
+          <h1 style="color:rgb(243, 234, 234) ;">Kerala</h1>
         </a>
   
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a href="{%url 'home'%}" class="active">Home</a></li>
-            <li><a href="{%url 'list'%}" class="active">Spots</a></li>
-            
-            
+            <li><a href="{%url 'home'%}" class="active"><i class="bi bi-house"></i>Home</a></li>
+            <li><a href="{%url 'list'%}" class="active"><i class="bi bi-geo"></i>Spots</a></li>
+            <li><a href="{%url 'listblog'%}" class="active"><i class="bi bi-book"></i>Blog</a></li>
             {%if request.user.is_authenticated %}
-            <li><a href="{%url 'create'%}" class="active">Contribute</a></li>
-            <li><a href="{% url 'listuser'%}" class="active">My profile</a></li>
-            <li><a href="{% url 'logout'%}" class="active">Logout</a></li>
-            {%else%}
-            <li><a href="{%url 'login'%}" class="active">Login</a></li>
-            <li><a href="{%url 'signup'%}" class="active">Signup</a></li>
-            {%endif%}
-            <li class="dropdown"><a href="#" class="active"><span>More</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            
+            <li><a href="{% url 'listuser'%}" class="active"><i class="bi bi-person"></i>My profile</a></li>
+            
+            <li class="dropdown"><a href="#" class="active"><span><i class="bi bi-file-plus"></i>Contribute</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
-                <li><a href="{%url 'about'%}" class="active">About</a></li>
-                <li><a href="" class="active">career</a></li>
+                <li><a href="{%url 'createblog'%}" class="active"><i class="bi bi-pen-fill">Blog</i></a></li>
+                <li><a href="{%url 'create'%}" class="active"><i class="bi bi-geo-alt-fill">Spot</i></a></li>
               </ul>
             </li>
+            <li><a href="{% url 'logout'%}" class="active"><i class="bi bi-door-closed"></i>Logout</a></li>
+            {%else%}
+            <li><a href="{%url 'login'%}" class="active"><i class="bi bi-door-open"></i>Login</a></li>
+            <li><a href="{%url 'signup'%}" class="active"><i class="bi bi-person-plus"></i></i>Register</a></li>
+            
+            {%endif%}
+            <li><a href="{%url 'about'%}" class="active"><i class="bi bi-telephone"></i>About</a></li>
+            
           </ul>
         </nav><!-- .navbar -->
   
@@ -96,6 +100,8 @@
 
 
 <footer id="footer" class="footer">
+  {% block image %}
+  {% endblock %}
     <div class="container">
       <div class="copyright">
         <form action="/i18n/setlang/" method="post">

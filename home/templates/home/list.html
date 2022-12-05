@@ -15,11 +15,13 @@
         <div class="col-lg-6 text-center">
 
 <center>
+  <p style="font-family: fantasy;">
+    In Kerala, the state is known for its beautiful beaches, lakes and mountains. The tourism industry in Kerala is one of the most promising sectors in the country. There are many things to do in Kerala and you can enjoy a vacation here with your family, friends or alone.</p>
 <form href="{%url 'list' %}" class="form-inline" method='post'>{%csrf_token%}
 
     {{searchdis}}
   
-    <input type="submit" style="background-color:red" class="btn" value="GO">
+    <input type="submit" style="background-color:rgb(183, 5, 5)" class="btn" value="search">
 
 </form>
 </center>
@@ -44,7 +46,7 @@
                 <img src="{{ spot.image.url }}" class="img-fluid" alt="">
               <h5>{{spot.name}}</h5>
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="{%url 'detail' pk=spot.id %}"><i>{{spot.discription|truncatechars:10|safe}}</i></a>
+                <a href="{%url 'detail' pk=spot.id %}" style="font-size: 50px;"><i class="bi bi-mouse2-fill"></i></a>
               </div>
             </div>  
                      
@@ -55,6 +57,24 @@
       </div>
       
     </section><!-- End Gallery Section -->
+    <div class="container p-4">
+      <div class="pagination justify-content-center">
+          <span class="step-links">
+            {% if notes.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ notes.previous_page_number }}">previous</a>
+            {% endif %}
 
+              <span class="current">
+                  Page {{ notes.number }} of {{ notes.paginator.num_pages }}
+              </span>
+
+            {% if notes.has_next %}
+                <a href="?page={{ notes.next_page_number }}">next</a>
+                <a href="?page={{ notes.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+          </span>
+          </div>
+      </div>
   </main><!-- End #main -->
   {%endblock%}
